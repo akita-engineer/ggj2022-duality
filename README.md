@@ -8,4 +8,4 @@ https://discord.gg/QVRejE4x
 
 
 ## Technical details
-Unity version: 2020.3.26f1 LTS ([unityhub://2020.3.26f1/7298b473bc1a]link for hub)
+Unity version: 2020.3.26f1 LTS ([link for Unity Hub](unityhub://2020.3.26f1/7298b473bc1a))
