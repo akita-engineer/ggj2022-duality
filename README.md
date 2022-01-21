@@ -1,10 +1,10 @@
 # GGJ 2022 Duality
 
 ## Wiki
-https://coda.io/d/GGJ2022-Duality_d_VBTZXpKeR
+[Coda](https://coda.io/d/GGJ2022-Duality_d_VBTZXpKeR/Resources_suqil#_lumbg)
 
 ## Communication
-https://discord.gg/QVRejE4x
+[Discord](https://discord.gg/QVRejE4x)
 
 
 ## Technical details
