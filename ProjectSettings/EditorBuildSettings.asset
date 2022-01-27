@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Prototypes/Prototype_Cam_Split/CameraSplit.unity
+    guid: 9e487efbc263a440c8b7a7d6d8110739
   m_configObjects: {}
