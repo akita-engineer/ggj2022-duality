@@ -72,6 +72,6 @@ public class CameraSplit : MonoBehaviour
 		Quaternion directionRotation = Quaternion.Euler(0, movementYOffset, 0);
 		Vector3 newDirection = directionRotation * transform.forward;
 
-		Debug.DrawLine(transform.position, transform.position + newDirection * 5);
+		Debug.DrawLine(transform.position, transform.position + newDirection * 5, Color.red);
     }
 }
