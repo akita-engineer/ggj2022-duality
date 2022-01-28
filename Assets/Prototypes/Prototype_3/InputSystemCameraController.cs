@@ -25,7 +25,6 @@ public class InputSystemCameraController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         mMovementInput = context.ReadValue<Vector2>();
-        Debug.Log(mMovementInput);
     }
 
     public void OnLook(InputAction.CallbackContext context)
