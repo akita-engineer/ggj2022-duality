@@ -29,6 +29,7 @@ public class ObjectivePoint : MonoBehaviour
     private float mPrevScore = 0.0f;
 
     // DEBUG
+    [Header("DEBUG")]
     [SerializeField]
     private float mXOffset = 540;
     private float mDistanceDelta;
@@ -59,7 +60,8 @@ public class ObjectivePoint : MonoBehaviour
         {
             SimpleGameController.Instance.OnObjectiveComplete();
         }
-        else if (mScore < successThreshold && mPrevScore >= successThreshold) {
+        else if (mScore < successThreshold && mPrevScore >= successThreshold) 
+        {
             SimpleGameController.Instance.OnObjectiveUncomplete();
         }
         mPrevScore = mScore;
@@ -69,6 +71,7 @@ public class ObjectivePoint : MonoBehaviour
         mDistanceScore = distanceScore;
         mOrientationDelta = rotationDelta;
         mOrietationScore = rotationScore;
+
     }
 
     private void OnGUI()
@@ -85,5 +88,14 @@ public class ObjectivePoint : MonoBehaviour
         GUILayout.Label("Orientation: " + mOrientationDelta);
         GUILayout.Label("Orientation Score: " + mOrietationScore);
         GUILayout.EndArea();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * 5.0f);
+        Gizmos.DrawWireSphere(transform.position, orientationStartDistance);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, distanceMaxDistance);
     }
 }

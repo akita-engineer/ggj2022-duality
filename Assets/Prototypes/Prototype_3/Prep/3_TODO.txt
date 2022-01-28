@@ -5,3 +5,4 @@
 - finalize the debug camera helper
 - create the game system prefab
 	- global variable storage in game system? can store flags for dialogue choices and interacting on objects (collecting)
+- tune the objectives (looks like 5 angle delta is min for some reason?)
