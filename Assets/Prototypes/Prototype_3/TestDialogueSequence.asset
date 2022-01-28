@@ -12,5 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56db244858467f4ba6da76f2d6b8669, type: 3}
   m_Name: TestDialogueSequence
   m_EditorClassIdentifier: 
-  sequenceName: 
-  sequence: []
+  sequenceName: Test
+  sequence:
+  - speaker: {fileID: 11400000, guid: a78031e6cb4ae9748b170a35e958d3e2, type: 2}
+    text: Hello this is some random sample text.
+    duration: 0
+    responses: []
+  - speaker: {fileID: 11400000, guid: a78031e6cb4ae9748b170a35e958d3e2, type: 2}
+    text: This is a line for our GGJ project!
+    duration: 0
+    responses: []
+  - speaker: {fileID: 11400000, guid: a78031e6cb4ae9748b170a35e958d3e2, type: 2}
+    text: Lorem ipsum just kidding I'm too lazy to copy paste that stuff in!
+    duration: 0
+    responses: []
+  - speaker: {fileID: 11400000, guid: a78031e6cb4ae9748b170a35e958d3e2, type: 2}
+    text: lalalalala lalalala lalalala lalala!
+    duration: 0
+    responses: []
+  - speaker: {fileID: 11400000, guid: a78031e6cb4ae9748b170a35e958d3e2, type: 2}
+    text: This is the final line, sayonara!
+    duration: 0
+    responses: []
+  - speaker: {fileID: 0}
+    text: 
+    duration: 0
+    responses:
+    - Bye!
+    - Ciao!
+    - Cyaaaa
+  - speaker: {fileID: 11400000, guid: a78031e6cb4ae9748b170a35e958d3e2, type: 2}
+    text: And just one more line to ensure this works!
+    duration: 0
+    responses: []
