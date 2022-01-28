@@ -1,0 +1,7 @@
+- Create the player prefab 
+	- Make sure the FPS controller is hooked up properly
+	- Tune the move/jump parameters
+	- Create the interaction system (to start dialogue, and maybe pick up items to)
+- finalize the debug camera helper
+- create the game system prefab
+	- global variable storage in game system? can store flags for dialogue choices and interacting on objects (collecting)

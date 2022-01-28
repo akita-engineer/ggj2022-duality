@@ -1,0 +1,5 @@
+1. Create the puzzle object
+2. Attach DebugPlayerCameraRoot as a child entity. Position as you see fit on the camera viewport.
+3. Disable the camera on DebugPlayerCameraRoot to see what it looks like with the split perspective camera (the actual cameras use the same settings)
+4. Duplicate the puzzle object (with the child camera objects), and position the two pieces where you want them.
+5. Unparent the perspective cameras. You can use this transform value for the objective point.
