@@ -92,9 +92,11 @@ public static class VegetationPlacementEditor
         if (allStairsRoot == null)
         {
             allStairsRoot = new GameObject("Stairs");
+            allStairsRoot.isStatic = true;
         }
 
         GameObject stairsInstanceRoot = new GameObject("StairsInstanceRoot");
+        stairsInstanceRoot.isStatic = true;
         stairsInstanceRoot.transform.position = startPos;
         stairsInstanceRoot.transform.rotation = Quaternion.LookRotation(pathDir);
         stairsInstanceRoot.transform.parent = allStairsRoot.transform;
@@ -140,7 +142,18 @@ public static class VegetationPlacementEditor
             float potentialHorizontalDistance = Vector3.Distance(potentialHorizontalPos, endPos);
             float potentialVerticalDistance = Vector3.Distance(potentialVerticalPos, endPos);
 
-            if (potentialHorizontalDistance < potentialVerticalDistance) {
+            bool dipsTooFar = false;
+            if (isRising && potentialVerticalPos.y > endPos.y) 
+            {
+                dipsTooFar = true;
+            }
+
+            if (!isRising && potentialVerticalPos.y < endPos.y)
+            {
+                dipsTooFar = true;
+            }
+
+            if (potentialHorizontalDistance < potentialVerticalDistance || dipsTooFar) {
 
                 if (potentialHorizontalDistance > distance)
                 {
@@ -175,6 +188,8 @@ public static class VegetationPlacementEditor
                 lastPlacedPiece = GameObject.Instantiate(stairsPrefab, potentialVerticalPos, pieceRotation, stairsInstanceRoot.transform);
                 lastPlacedPiece.AddComponent<FloatingStairs>();
             }
+
+            lastPlacedPiece.isStatic = true;
 
             placedCount++;
             if (placedCount == maxPlaced)
