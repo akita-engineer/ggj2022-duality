@@ -71,6 +71,121 @@ public static class VegetationPlacementEditor
         new VegetationPlacementAssetsPointer("Rocks", "Assets/HQ_BigRock/", "Rock", true, Vector3.one / 2.0f, Vector3.one)
     };
 
+    private static void PlaceBridge(Vector3 startPos, Vector3 endPos)
+    {
+        string stairsPath = "Assets/laxer Assets/wood bridge/Prefabs with collision/wood bridge stairs 2.prefab";
+        string straightPath = "Assets/laxer Assets/wood bridge/Prefabs with collision/wood bridge 2.prefab";
+        GameObject stairsPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(stairsPath);
+        GameObject pathPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(straightPath);
+
+
+        bool isRising = endPos.y > startPos.y;
+        Vector3 pathDir = endPos - startPos;
+        float totalDistance = Vector3.Distance(startPos, endPos);
+        Vector3 rotationDir = new Vector3(pathDir.x, 0.0f, pathDir.z);
+
+        // Flat rotation of pieces
+        Quaternion pieceRotation = isRising ? Quaternion.LookRotation(-rotationDir) : Quaternion.LookRotation(rotationDir);
+
+        // Have the root game object store the bridge
+        GameObject allStairsRoot = GameObject.Find("Stairs");
+        if (allStairsRoot == null)
+        {
+            allStairsRoot = new GameObject("Stairs");
+        }
+
+        GameObject stairsInstanceRoot = new GameObject("StairsInstanceRoot");
+        stairsInstanceRoot.transform.position = startPos;
+        stairsInstanceRoot.transform.rotation = Quaternion.LookRotation(pathDir);
+        stairsInstanceRoot.transform.parent = allStairsRoot.transform;
+
+
+        // First piece is
+        GameObject startPiece = GameObject.Instantiate(pathPrefab, startPos, pieceRotation, stairsInstanceRoot.transform);
+        startPiece.AddComponent<FloatingPath>();
+
+        Vector3 lastPos = startPiece.transform.position;
+        GameObject lastPlacedPiece = startPiece;
+        float distance = float.MaxValue;
+        int maxPlaced = int.MaxValue;
+        int placedCount = 0;
+
+        while (true)
+        {
+            //Check what would be closest to the line
+            Vector3 potentialHorizontalPos = Vector3.zero;
+            if (lastPlacedPiece.GetComponent<FloatingPath>())
+            {
+                Vector3 offset = isRising ? new Vector3(0.0f, 0.0f, -2.538f) : new Vector3(0.0f, 0.0f, 2.538f);
+                potentialHorizontalPos = lastPlacedPiece.transform.TransformPoint(offset);
+            } else if (lastPlacedPiece.GetComponent<FloatingStairs>())
+            {
+                //Vector3 offset = isRising ? new Vector3(0, 0.449f, -2.648f) : new Vector3(0, -0.449f, 2.648f);
+                Vector3 offset = isRising ? new Vector3(0.0f, 0.576f, -2.476f) : new Vector3(0.0f, -0.576f, 2.476f);
+                potentialHorizontalPos = lastPlacedPiece.transform.TransformPoint(offset);
+            }
+
+            Vector3 potentialVerticalPos = Vector3.zero;
+            if (lastPlacedPiece.GetComponent<FloatingPath>())
+            {
+                Vector3 offset = isRising ? new Vector3(0.0f, 0.576f, -2.476f) : new Vector3(0.0f, -0.576f, 2.476f);
+                potentialVerticalPos = lastPlacedPiece.transform.TransformPoint(offset);
+            }
+            else if (lastPlacedPiece.GetComponent<FloatingStairs>())
+            {
+                Vector3 offset = isRising ? new Vector3(0, 1.328139f, -2.645683f) : new Vector3(0, -1.328139f, 2.645683f);
+                potentialVerticalPos = lastPlacedPiece.transform.TransformPoint(offset);
+            }
+
+            float potentialHorizontalDistance = Vector3.Distance(potentialHorizontalPos, endPos);
+            float potentialVerticalDistance = Vector3.Distance(potentialVerticalPos, endPos);
+
+            if (potentialHorizontalDistance < potentialVerticalDistance) {
+
+                if (potentialHorizontalDistance > distance)
+                {
+                    break;
+                }
+
+                //if (Vector3.Distance(startPos, potentialHorizontalPos) > totalDistance)
+                //{
+                //    break;
+                //}
+
+                distance = potentialHorizontalDistance;
+
+                Debug.Log("[BRIDGE PLACEMENT] Placing horizontal path...");
+                lastPlacedPiece = GameObject.Instantiate(pathPrefab, potentialHorizontalPos, pieceRotation, stairsInstanceRoot.transform);
+                lastPlacedPiece.AddComponent<FloatingPath>();
+            } else
+            {
+                if (potentialVerticalDistance > distance)
+                {
+                    break;
+                }
+
+                //if (Vector3.Distance(startPos, potentialVerticalPos) > totalDistance)
+                //{
+                //    break;
+                //}
+
+                distance = potentialVerticalDistance;
+
+                Debug.Log("[BRIDGE PLACEMENT] Placing vertical path...");
+                lastPlacedPiece = GameObject.Instantiate(stairsPrefab, potentialVerticalPos, pieceRotation, stairsInstanceRoot.transform);
+                lastPlacedPiece.AddComponent<FloatingStairs>();
+            }
+
+            placedCount++;
+            if (placedCount == maxPlaced)
+            {
+                break;
+            }
+        }
+
+        Undo.RegisterCreatedObjectUndo(stairsInstanceRoot, "Place bridges");
+    }
+
     private static void PlacementUpdate(SceneView scene)
     {
         if (Event.current.isScrollWheel && Event.current.shift)
@@ -94,9 +209,8 @@ public static class VegetationPlacementEditor
         }
 
 
-        string stairsPath = "Assets/laxer Assets/wood bridge/Prefabs with collision/wood bridge stairs 2.prefab";
-        string straightPath = "Assets/laxer Assets/wood bridge/Prefabs with collision/wood bridge 2.prefab";
-        if (Event.current.isMouse && Event.current.button == 2 && Event.current.type == EventType.MouseDown && Event.current.shift)
+        
+        if (Event.current.isMouse && Event.current.button == 0 && Event.current.type == EventType.MouseDown && Event.current.shift)
         {
             int state = EditorPrefs.GetInt("BridgePlacementState");
 
@@ -118,124 +232,10 @@ public static class VegetationPlacementEditor
                 {
                     Debug.Log("[BRIDGE PLACEMENT] Setting point B and placing the bridge!");
 
-                    // Place the bridge!
+                    // Construct the bridge
                     Vector3 startPos = new Vector3(EditorPrefs.GetFloat("BridgePlacement_X"), EditorPrefs.GetFloat("BridgePlacement_Y"), EditorPrefs.GetFloat("BridgePlacement_Z"));
                     Vector3 endPos = hitInfo.point;
-
-                    // If the angle between them is higher or equal than 45 degrees, than use the 
-
-
-                    // we basically have to "render" the line with the bridge prefabs.
-                    // we have a straight piece and an angle piece.
-
-                    Vector3 pathDir = endPos - startPos;
-
-                    GameObject stairsRootDebug = new GameObject("StairsRootDebug");
-                    stairsRootDebug.transform.position = startPos;
-                    stairsRootDebug.transform.rotation = Quaternion.LookRotation(pathDir);
-
-
-                    float distance = Vector3.Distance(startPos, endPos);
-                    int numberOfSteps = (int)(distance / 2.5f);
-
-                    GameObject stairsPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(stairsPath);
-                    GameObject pathPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(straightPath);
-
-
-
-
-
-                    if (endPos.y > startPos.y)
-                    {
-                        Vector3 rotationDir = new Vector3(pathDir.x, 0.0f, pathDir.z);
-                        Quaternion resultRotation = Quaternion.LookRotation(-rotationDir);
-
-                        GameObject startStairs = GameObject.Instantiate(stairsPrefab, startPos, resultRotation, stairsRootDebug.transform);
-
-                        float currentDistance = float.MaxValue;
-                        for (int i = 0; ; i++)
-                        {
-                            Vector3 resultWorldPos = startStairs.transform.TransformPoint(new Vector3(0, 1.328139f, -2.645683f) * i);
-
-                            float dist = Vector3.Distance(resultWorldPos, endPos);
-                            if (dist > currentDistance)
-                            {
-                                break;
-                            }
-
-                            currentDistance = dist;
-
-                            GameObject.Instantiate(stairsPrefab, resultWorldPos, resultRotation, stairsRootDebug.transform);
-                        }
-                    } else
-                    {
-                        // Going down...
-
-                        Vector3 rotationDir = new Vector3(pathDir.x, 0.0f, pathDir.z);
-                        Quaternion resultRotation = Quaternion.LookRotation(rotationDir);
-
-                        GameObject startStairs = GameObject.Instantiate(stairsPrefab, startPos, resultRotation, stairsRootDebug.transform);
-                        Vector3 prevPoint = startPos;
-
-                        float currentDistance = float.MaxValue;
-                        for (int i = 0; ; i++)
-                        {
-                            // Compare current point against the result...
-
-
-                            Vector3 resultWorldPosVertical = startStairs.transform.TransformPoint(new Vector3(0, -1.328139f, 2.645683f) * i);
-                            Vector3 resultWorldPosHorizontal = startStairs.transform.TransformPoint(new Vector3(0, -0.449f, 2.648f) * i);
-
-
-                            //float verticalDistance = Mathf.Abs(endPos.y - prevPoint.y);
-                            //float horizontalDistance = Vector3.Distance(new Vector3(prevPoint.x, 0.0f, prevPoint.z), new Vector3(endPos.x, 0.0f, endPos.z));
-
-                            //// whatever's furthest, need to cover
-                            //if (verticalDistance > horizontalDistance)
-                            //{
-                            //    float dist = Vector3.Distance(resultWorldPosVertical, endPos);
-                            //    if (dist > currentDistance)
-                            //    {
-                            //        break;
-                            //    }
-
-                            //    GameObject.Instantiate(stairsPrefab, resultWorldPosVertical, resultRotation, stairsRootDebug.transform);
-                            //    prevPoint = resultWorldPosVertical;
-
-                            //    currentDistance = dist;
-                            //}
-                            //else
-                            //{
-                            //    float dist = Vector3.Distance(resultWorldPosHorizontal, endPos);
-                            //    if (dist > currentDistance)
-                            //    {
-                            //        break;
-                            //    }
-
-                            //    GameObject.Instantiate(pathPrefab, resultWorldPosHorizontal, resultRotation, stairsRootDebug.transform);
-                            //    prevPoint = resultWorldPosHorizontal;
-
-                            //    currentDistance = dist;
-                            //}
-
-                            // need to account for the fact that horizontal + vertical paths may be connected..
-
-                            float dist = Vector3.Distance(resultWorldPosVertical, endPos);
-                            if (dist > currentDistance)
-                            {
-                                break;
-                            }
-
-                            GameObject.Instantiate(stairsPrefab, resultWorldPosVertical, resultRotation, stairsRootDebug.transform);
-                            prevPoint = resultWorldPosVertical;
-
-                            currentDistance = dist;
-                        }
-                    }
-
-                    //...
-                    Undo.RegisterCreatedObjectUndo(stairsRootDebug, "Auto-stairs");
-                    //...
+                    PlaceBridge(startPos, endPos);
                     EditorPrefs.SetInt("BridgePlacementState", 0);
                 }
             }
