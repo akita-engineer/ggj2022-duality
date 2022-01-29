@@ -1,0 +1,30 @@
+﻿title: Start
+tags:
+position: -78,-432
+---
+<<set $myvar to "Hello, Yarn!">>
+This is the very first line.
+How are you doing?
+-> Bad
+    Sad to hear that.
+    <<set $myvar to "bad">>
+-> Good
+    Good to hear!
+    <<set $myvar to "good">>
+I hope you're ready for the next line.
+It's gonna be real... {$myvar}
+
+<<jump Level1>>
+===
+
+title: Level1
+position: -38,-66.5
+---
+Level 1 started.
+I hope you are ready.
+This is just random text actually.
+
+Thing: Hey, nice to meet you. I'm a thing.
+Player: ...
+Thing: Shouldn't you greet yourself too?
+===
