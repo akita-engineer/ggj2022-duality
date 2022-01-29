@@ -5,6 +5,26 @@ using TMPro;
 
 public class DialogueSystem : MonoBehaviour
 {
+    #region Singleton
+
+    private static DialogueSystem _instance;
+
+    public static DialogueSystem Instance { get { return _instance; } }
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
+
+    #endregion
+
     private const float secondsPerWord = 0.24f;
 
     public DialogueSequenceScriptableObject dialogueSequence;
