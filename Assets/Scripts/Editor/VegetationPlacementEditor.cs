@@ -25,11 +25,42 @@ public static class VegetationPlacementEditor
         }
     }
 
-    [MenuItem("Tools/Toggle Vegetation Placement")]
+    [MenuItem("Tools/Vegetation Placement/Toggle")]
     public static void ToggleVegetationPlacement()
     {
         EditorPrefs.SetBool("VegetationPlacementEditor", !EditorPrefs.GetBool("VegetationPlacementEditor"));
         InitializePlacement();
+    }
+
+    public static void SelectPlacementCategory(int category)
+    {
+        VegetationPlacementAssetsPointer pointer = placementObjects[category];
+        EditorPrefs.SetInt("VegetationPlacementSelectedObject", category);
+        Debug.Log($"[PLACEMENT EDITOR] Switched to placing {pointer.Name}");
+    }
+
+    [MenuItem("Tools/Vegetation Placement/Place Grass")]
+    public static void SelectGrassCategory()
+    {
+        SelectPlacementCategory(0);
+    }
+
+    [MenuItem("Tools/Vegetation Placement/Place Trees")]
+    public static void SelectTreesCategory()
+    {
+        SelectPlacementCategory(1);
+    }
+
+    [MenuItem("Tools/Vegetation Placement/Place Crystals")]
+    public static void SelectCrystalsCategory()
+    {
+        SelectPlacementCategory(2);
+    }
+
+    [MenuItem("Tools/Vegetation Placement/Place Rocks")]
+    public static void SelectRocksCategory()
+    {
+        SelectPlacementCategory(3);
     }
 
     public class VegetationPlacementAssetsPointer
@@ -106,7 +137,6 @@ public static class VegetationPlacementEditor
         GameObject startPiece = GameObject.Instantiate(pathPrefab, startPos, pieceRotation, stairsInstanceRoot.transform);
         startPiece.AddComponent<FloatingPath>();
 
-        Vector3 lastPos = startPiece.transform.position;
         GameObject lastPlacedPiece = startPiece;
         float distance = float.MaxValue;
         int maxPlaced = int.MaxValue;
@@ -160,11 +190,6 @@ public static class VegetationPlacementEditor
                     break;
                 }
 
-                //if (Vector3.Distance(startPos, potentialHorizontalPos) > totalDistance)
-                //{
-                //    break;
-                //}
-
                 distance = potentialHorizontalDistance;
 
                 Debug.Log("[BRIDGE PLACEMENT] Placing horizontal path...");
@@ -176,11 +201,6 @@ public static class VegetationPlacementEditor
                 {
                     break;
                 }
-
-                //if (Vector3.Distance(startPos, potentialVerticalPos) > totalDistance)
-                //{
-                //    break;
-                //}
 
                 distance = potentialVerticalDistance;
 
@@ -209,8 +229,7 @@ public static class VegetationPlacementEditor
             {
                 int currentValue = EditorPrefs.GetInt("VegetationPlacementSelectedObject");
                 int nextValue = (currentValue + 1) % placementObjects.Length;
-                EditorPrefs.SetInt("VegetationPlacementSelectedObject", nextValue);
-                Debug.Log($"[PLACEMENT EDITOR] Switched to placing {placementObjects[nextValue].Name}");
+                SelectPlacementCategory(nextValue);
             }
 
             if (Event.current.delta.y > 0)
@@ -218,8 +237,7 @@ public static class VegetationPlacementEditor
                 Debug.Log("Scroll down");
                 int currentValue = EditorPrefs.GetInt("VegetationPlacementSelectedObject");
                 int nextValue = currentValue == 0 ? placementObjects.Length - 1 : currentValue - 1;
-                EditorPrefs.SetInt("VegetationPlacementSelectedObject", nextValue);
-                Debug.Log($"[PLACEMENT EDITOR] Switched to placing {placementObjects[nextValue].Name}");
+                SelectPlacementCategory(nextValue);
             }
         }
 
@@ -256,14 +274,14 @@ public static class VegetationPlacementEditor
             }
         }
 
-        if (Event.current.isMouse && Event.current.button == 2 && Event.current.type == EventType.MouseDown && !Event.current.shift)
+        if (Event.current.isMouse && Event.current.button == 0 && Event.current.type == EventType.MouseDown && !Event.current.shift)
         {
             VegetationPlacementAssetsPointer pointer = placementObjects[EditorPrefs.GetInt("VegetationPlacementSelectedObject")];
 
             Debug.Log($"[PLACEMENT EDITOR] Placing {pointer.Name}...");
 
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, ~0, QueryTriggerInteraction.Ignore))
             {
                 string[] assets = Directory.GetFiles(pointer.Path);
                 List<GameObject> resultObjectPool = new List<GameObject>();
