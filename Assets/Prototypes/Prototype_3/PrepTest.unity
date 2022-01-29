@@ -1746,6 +1746,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2420362347381670162, guid: af0783563b17b4a4f8417d5bf74a26d8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2420362347381670165, guid: af0783563b17b4a4f8417d5bf74a26d8, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1806,6 +1810,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5529301090925725189, guid: af0783563b17b4a4f8417d5bf74a26d8, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5609634330286864410, guid: af0783563b17b4a4f8417d5bf74a26d8, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5857281461715189989, guid: af0783563b17b4a4f8417d5bf74a26d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 29.41565
@@ -1846,6 +1858,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8469713596465416096, guid: af0783563b17b4a4f8417d5bf74a26d8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469713596465416096, guid: af0783563b17b4a4f8417d5bf74a26d8, type: 3}
+      propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8850554349990834308, guid: af0783563b17b4a4f8417d5bf74a26d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.75
@@ -1882,7 +1902,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: af0783563b17b4a4f8417d5bf74a26d8, type: 3}
 --- !u!1 &1778486502
 GameObject:
