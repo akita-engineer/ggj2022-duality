@@ -446,13 +446,18 @@ public static class VegetationPlacementEditor
             }
         }
 
-        if (Event.current.control && Event.current.isMouse && Event.current.type == EventType.MouseDown && Event.current.button == 0)
+        if (Event.current.control && Event.current.isMouse && Event.current.type == EventType.MouseDown && Event.current.button == 2)
         {
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, ~0, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000.0f, ~0, QueryTriggerInteraction.Ignore))
             {
                 GameObject player = GameObject.Find("PlayerCapsule");
                 player.transform.position = hitInfo.point + Vector3.up * 2;
+            }
+
+            if (Event.current.capsLock)
+            {
+                EditorApplication.isPlaying = true;
             }
         }
     }
