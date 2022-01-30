@@ -243,13 +243,13 @@ public static class VegetationPlacementEditor
 
 
         
-        if (Event.current.isMouse && Event.current.button == 0 && Event.current.type == EventType.MouseDown && Event.current.shift)
+        if (Event.current.isMouse && Event.current.button == 2 && Event.current.type == EventType.MouseDown && Event.current.shift)
         {
             int state = EditorPrefs.GetInt("BridgePlacementState");
 
             // Spawn first part of bridge
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, ~0, QueryTriggerInteraction.Ignore))
             {
                 if (state == 0)
                 {
@@ -274,7 +274,7 @@ public static class VegetationPlacementEditor
             }
         }
 
-        if (Event.current.isMouse && Event.current.button == 0 && Event.current.type == EventType.MouseDown && !Event.current.shift)
+        if (Event.current.isMouse && Event.current.button == 2 && Event.current.type == EventType.MouseDown && !Event.current.shift)
         {
             VegetationPlacementAssetsPointer pointer = placementObjects[EditorPrefs.GetInt("VegetationPlacementSelectedObject")];
 
@@ -371,6 +371,16 @@ public static class VegetationPlacementEditor
                 }
 
                 Undo.RegisterCreatedObjectUndo(result, "Vegetation Placement Spawn");
+            }
+        }
+
+        if (Event.current.control && Event.current.isMouse && Event.current.type == EventType.MouseDown && Event.current.button == 0)
+        {
+            Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, ~0, QueryTriggerInteraction.Ignore))
+            {
+                GameObject player = GameObject.Find("PlayerCapsule");
+                player.transform.position = hitInfo.point + Vector3.up * 2;
             }
         }
     }
