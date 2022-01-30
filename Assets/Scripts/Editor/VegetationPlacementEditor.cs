@@ -443,4 +443,63 @@ public static class VegetationPlacementEditor
             }
         }
     }
+
+    static string islandsPath = "Assets/Prefabs/Islands/";
+    private static void GenerateIsland(string filterName)
+    {
+        string[] assets = Directory.GetFiles(islandsPath);
+        List<GameObject> resultIslandPool = new List<GameObject>();
+
+        foreach (string assetPath in assets)
+        {
+            if (assetPath.Contains(".meta"))
+            {
+                continue;
+            }
+
+            if (!assetPath.Contains(".prefab"))
+            {
+                continue;
+            }
+
+            if (!assetPath.Contains(filterName))
+            {
+                continue;
+            }
+
+            GameObject objectPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
+            resultIslandPool.Add(objectPrefab);
+        }
+
+        GameObject randomIsland = resultIslandPool[Random.Range(0, resultIslandPool.Count - 1)];
+        Camera sceneCamera = SceneView.lastActiveSceneView.camera;
+        Vector3 resultPos = sceneCamera.transform.position + sceneCamera.transform.forward * 30f;
+
+        GameObject islandsRoot = GameObject.Find("Islands");
+        if (islandsRoot == null)
+        {
+            islandsRoot = new GameObject("Islands");
+        }
+
+        GameObject newObject = GameObject.Instantiate(randomIsland, resultPos, Quaternion.identity, islandsRoot.transform);
+        Undo.RegisterCreatedObjectUndo(newObject, "Place Island");
+    }
+
+    [MenuItem("Tools/Island Placement/Generate Regular Island")]
+    private static void GenerateRegularIsland()
+    {
+        GenerateIsland("RegularIsland");
+    }
+
+    [MenuItem("Tools/Island Placement/Generate Interesting Island")]
+    private static void GenerateInterestingIsland()
+    {
+        GenerateIsland("InterestingIsland");
+    }
+
+    [MenuItem("Tools/Island Placement/Generate Platforming Island")]
+    private static void GeneratePlatformingIsland()
+    {
+        GenerateIsland("PlatformingIsland");
+    }
 }
