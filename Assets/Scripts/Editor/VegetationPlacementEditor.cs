@@ -68,6 +68,9 @@ public static class VegetationPlacementEditor
         private string name;
         public string Name => name;
 
+        private EnvironmentObjectType objectType;
+        public EnvironmentObjectType ObjectType => objectType;
+
         private string path;
         public string Path => path;
 
@@ -86,24 +89,50 @@ public static class VegetationPlacementEditor
         private Vector3 offset;
         public Vector3 Offset => offset;
 
-        public VegetationPlacementAssetsPointer(string name, string path, string filter, bool placeColliders, Vector3 offset, Vector3 minScale, Vector3 maxScale)
+        private Dictionary<EnvironmentObjectType, float> distancesMap;
+        public Dictionary<EnvironmentObjectType, float> DistancesMap => distancesMap;
+
+        public VegetationPlacementAssetsPointer(string name, EnvironmentObjectType objectType, string path, string filter, bool placeColliders, Vector3 offset, Vector3 minScale, Vector3 maxScale, Dictionary<EnvironmentObjectType, float> distancesMap)
         {
             this.name = name;
+            this.objectType = objectType;
             this.path = path;
             this.filter = filter;
             this.placeColliders = placeColliders;
             this.offset = offset;
             this.minScale = minScale;
             this.maxScale = maxScale;
+            this.distancesMap = distancesMap;
         }
     }
 
+    // TODO: could do a proximity matrix config
     public static VegetationPlacementAssetsPointer[] placementObjects = new VegetationPlacementAssetsPointer[]
     {
-        new VegetationPlacementAssetsPointer("Grass", "Assets/Fantasy Forest Environment Free Sample/Meshes/Prefabs/", "grass", false, Vector3.zero, Vector3.one, Vector3.one),
-        new VegetationPlacementAssetsPointer("Trees", "Assets/Waldemarst/JapaneseGardenPackage/Prefabs/", "Tree", true, new Vector3(0.0f, -0.5f, 0.0f), Vector3.one / 1.5f, Vector3.one),
-        new VegetationPlacementAssetsPointer("Crystals", "Assets/Prefabs/Crystals/", "Crystal", true, Vector3.zero, Vector3.one * 4.0f, Vector3.one * 8.0f),
-        new VegetationPlacementAssetsPointer("Rocks", "Assets/HQ_BigRock/", "Rock", true, new Vector3(0.0f, -0.1f, 0.0f), Vector3.one * 2.0f, Vector3.one * 4.0f)
+        new VegetationPlacementAssetsPointer("Grass", EnvironmentObjectType.Grass, "Assets/Fantasy Forest Environment Free Sample/Meshes/Prefabs/", "grass", false, Vector3.zero, Vector3.one, Vector3.one, new Dictionary<EnvironmentObjectType, float>(){
+            {EnvironmentObjectType.Grass, 0.05f },
+            {EnvironmentObjectType.Crystal, 0.1f },
+            {EnvironmentObjectType.Rock, 0.1f },
+            {EnvironmentObjectType.Tree, 0.1f }
+        }),
+        new VegetationPlacementAssetsPointer("Trees", EnvironmentObjectType.Tree, "Assets/Waldemarst/JapaneseGardenPackage/Prefabs/", "Tree", true, new Vector3(0.0f, -0.5f, 0.0f), Vector3.one, Vector3.one * 2.0f, new Dictionary<EnvironmentObjectType, float>(){
+            {EnvironmentObjectType.Grass, 0.1f },
+            {EnvironmentObjectType.Crystal, 7.5f },
+            {EnvironmentObjectType.Rock, 7.5f },
+            {EnvironmentObjectType.Tree, 5f }
+        }),
+        new VegetationPlacementAssetsPointer("Crystals", EnvironmentObjectType.Crystal, "Assets/Prefabs/Crystals/", "Crystal", true, Vector3.zero, Vector3.one * 4.0f, Vector3.one * 8.0f, new Dictionary<EnvironmentObjectType, float>(){
+            {EnvironmentObjectType.Grass, 0.1f },
+            {EnvironmentObjectType.Crystal, 15f },
+            {EnvironmentObjectType.Rock, 5f },
+            {EnvironmentObjectType.Tree, 7.5f }
+        }),
+        new VegetationPlacementAssetsPointer("Rocks", EnvironmentObjectType.Rock, "Assets/HQ_BigRock/", "Rock", true, new Vector3(0.0f, -0.1f, 0.0f), Vector3.one * 4.0f, Vector3.one * 8.0f, new Dictionary<EnvironmentObjectType, float>(){
+            {EnvironmentObjectType.Grass, 0.1f },
+            {EnvironmentObjectType.Crystal, 5f },
+            {EnvironmentObjectType.Rock, 5f },
+            {EnvironmentObjectType.Tree, 7.5f }
+        })
     };
 
     private static void PlaceBridge(Vector3 startPos, Vector3 endPos)
@@ -154,7 +183,8 @@ public static class VegetationPlacementEditor
             {
                 Vector3 offset = isRising ? new Vector3(0.0f, 0.0f, -2.538f) : new Vector3(0.0f, 0.0f, 2.538f);
                 potentialHorizontalPos = lastPlacedPiece.transform.TransformPoint(offset);
-            } else if (lastPlacedPiece.GetComponent<FloatingStairs>())
+            }
+            else if (lastPlacedPiece.GetComponent<FloatingStairs>())
             {
                 //Vector3 offset = isRising ? new Vector3(0, 0.449f, -2.648f) : new Vector3(0, -0.449f, 2.648f);
                 Vector3 offset = isRising ? new Vector3(0.0f, 0.576f, -2.476f) : new Vector3(0.0f, -0.576f, 2.476f);
@@ -177,7 +207,7 @@ public static class VegetationPlacementEditor
             float potentialVerticalDistance = Vector3.Distance(potentialVerticalPos, endPos);
 
             bool dipsTooFar = false;
-            if (isRising && potentialVerticalPos.y > endPos.y) 
+            if (isRising && potentialVerticalPos.y > endPos.y)
             {
                 dipsTooFar = true;
             }
@@ -187,7 +217,8 @@ public static class VegetationPlacementEditor
                 dipsTooFar = true;
             }
 
-            if (potentialHorizontalDistance < potentialVerticalDistance || dipsTooFar) {
+            if (potentialHorizontalDistance < potentialVerticalDistance || dipsTooFar)
+            {
 
                 if (potentialHorizontalDistance > distance)
                 {
@@ -196,10 +227,10 @@ public static class VegetationPlacementEditor
 
                 distance = potentialHorizontalDistance;
 
-                Debug.Log("[BRIDGE PLACEMENT] Placing horizontal path...");
                 lastPlacedPiece = GameObject.Instantiate(pathPrefab, potentialHorizontalPos, pieceRotation, stairsInstanceRoot.transform);
                 lastPlacedPiece.AddComponent<FloatingPath>();
-            } else
+            }
+            else
             {
                 if (potentialVerticalDistance > distance)
                 {
@@ -208,7 +239,6 @@ public static class VegetationPlacementEditor
 
                 distance = potentialVerticalDistance;
 
-                Debug.Log("[BRIDGE PLACEMENT] Placing vertical path...");
                 lastPlacedPiece = GameObject.Instantiate(stairsPrefab, potentialVerticalPos, pieceRotation, stairsInstanceRoot.transform);
                 lastPlacedPiece.AddComponent<FloatingStairs>();
             }
@@ -245,15 +275,13 @@ public static class VegetationPlacementEditor
             }
         }
 
-
-        
         if (Event.current.isMouse && Event.current.button == 2 && Event.current.type == EventType.MouseDown && Event.current.shift)
         {
             int state = EditorPrefs.GetInt("BridgePlacementState");
 
             // Spawn first part of bridge
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, ~0, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000.0f, ~0, QueryTriggerInteraction.Ignore))
             {
                 if (state == 0)
                 {
@@ -278,15 +306,35 @@ public static class VegetationPlacementEditor
             }
         }
 
-        if (Event.current.isMouse && Event.current.button == 2 && Event.current.type == EventType.MouseDown && !Event.current.shift)
+        // Hold to draw
+        if (Event.current.control && Event.current.alt)
         {
             VegetationPlacementAssetsPointer pointer = placementObjects[EditorPrefs.GetInt("VegetationPlacementSelectedObject")];
 
-            Debug.Log($"[PLACEMENT EDITOR] Placing {pointer.Name}...");
-
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, 100.0f, ~0, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000.0f, ~0, QueryTriggerInteraction.Ignore))
             {
+                // Check if there is any bad overlap
+                bool overlaps = false;
+                foreach (EnvironmentObjectType type in pointer.DistancesMap.Keys)
+                {
+                    float distance = pointer.DistancesMap[type];
+                    Collider[] allOverlaps = Physics.OverlapSphere(hitInfo.point, distance, ~0, QueryTriggerInteraction.Ignore);
+                    foreach (Collider c in allOverlaps)
+                    {
+                        EnvironmentObject envObject = c.GetComponentInParent<EnvironmentObject>();
+                        if (envObject && envObject.ObjectType == type)
+                        {
+                            overlaps = true;
+                        }
+                    }
+                }
+
+                if (overlaps)
+                {
+                    return;
+                }
+
                 string[] assets = Directory.GetFiles(pointer.Path);
                 List<GameObject> resultObjectPool = new List<GameObject>();
 
@@ -348,6 +396,10 @@ public static class VegetationPlacementEditor
                 }
 
                 GameObject result = GameObject.Instantiate(randomObject, hitInfo.point, Quaternion.identity, placementRoot.transform);
+
+                // Component
+                EnvironmentObject envObjectComponent = result.AddComponent<EnvironmentObject>();
+                envObjectComponent.SetObjectType(pointer.ObjectType);
 
                 // Static
                 foreach (Transform t in result.GetComponentsInChildren<Transform>())
