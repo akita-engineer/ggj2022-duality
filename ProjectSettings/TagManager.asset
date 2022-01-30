@@ -12,9 +12,9 @@ TagManager:
   - Interactable
   - Water
   - UI
-  - 
-  - 
-  - 
+  - PostProcessing
+  - Player
+  - Music
   - 
   - 
   - 
