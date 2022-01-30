@@ -77,9 +77,6 @@ public static class VegetationPlacementEditor
         private string filter;
         public string Filter => filter;
 
-        private bool placeColliders;
-        public bool PlaceColliders => placeColliders;
-
         private Vector3 minScale;
         public Vector3 MinScale => minScale;
 
@@ -92,13 +89,12 @@ public static class VegetationPlacementEditor
         private Dictionary<EnvironmentObjectType, float> distancesMap;
         public Dictionary<EnvironmentObjectType, float> DistancesMap => distancesMap;
 
-        public VegetationPlacementAssetsPointer(string name, EnvironmentObjectType objectType, string path, string filter, bool placeColliders, Vector3 offset, Vector3 minScale, Vector3 maxScale, Dictionary<EnvironmentObjectType, float> distancesMap)
+        public VegetationPlacementAssetsPointer(string name, EnvironmentObjectType objectType, string path, string filter, Vector3 offset, Vector3 minScale, Vector3 maxScale, Dictionary<EnvironmentObjectType, float> distancesMap)
         {
             this.name = name;
             this.objectType = objectType;
             this.path = path;
             this.filter = filter;
-            this.placeColliders = placeColliders;
             this.offset = offset;
             this.minScale = minScale;
             this.maxScale = maxScale;
@@ -109,25 +105,25 @@ public static class VegetationPlacementEditor
     // TODO: could do a proximity matrix config
     public static VegetationPlacementAssetsPointer[] placementObjects = new VegetationPlacementAssetsPointer[]
     {
-        new VegetationPlacementAssetsPointer("Grass", EnvironmentObjectType.Grass, "Assets/Fantasy Forest Environment Free Sample/Meshes/Prefabs/", "grass", false, Vector3.zero, Vector3.one, Vector3.one, new Dictionary<EnvironmentObjectType, float>(){
+        new VegetationPlacementAssetsPointer("Grass", EnvironmentObjectType.Grass, "Assets/Prefabs/Grass/", "grass", Vector3.zero, Vector3.one, Vector3.one, new Dictionary<EnvironmentObjectType, float>(){
             {EnvironmentObjectType.Grass, 0.05f },
             {EnvironmentObjectType.Crystal, 0.1f },
             {EnvironmentObjectType.Rock, 0.1f },
             {EnvironmentObjectType.Tree, 0.1f }
         }),
-        new VegetationPlacementAssetsPointer("Trees", EnvironmentObjectType.Tree, "Assets/Waldemarst/JapaneseGardenPackage/Prefabs/", "Tree", true, new Vector3(0.0f, -0.5f, 0.0f), Vector3.one, Vector3.one * 2.0f, new Dictionary<EnvironmentObjectType, float>(){
+        new VegetationPlacementAssetsPointer("Trees", EnvironmentObjectType.Tree, "Assets/Prefabs/Trees/", "Tree", new Vector3(0.0f, -0.5f, 0.0f), Vector3.one, Vector3.one * 2.0f, new Dictionary<EnvironmentObjectType, float>(){
             {EnvironmentObjectType.Grass, 0.1f },
             {EnvironmentObjectType.Crystal, 7.5f },
             {EnvironmentObjectType.Rock, 7.5f },
             {EnvironmentObjectType.Tree, 5f }
         }),
-        new VegetationPlacementAssetsPointer("Crystals", EnvironmentObjectType.Crystal, "Assets/Prefabs/Crystals/", "Crystal", true, Vector3.zero, Vector3.one * 4.0f, Vector3.one * 8.0f, new Dictionary<EnvironmentObjectType, float>(){
+        new VegetationPlacementAssetsPointer("Crystals", EnvironmentObjectType.Crystal, "Assets/Prefabs/Crystals/", "Crystal", Vector3.zero, Vector3.one * 4.0f, Vector3.one * 8.0f, new Dictionary<EnvironmentObjectType, float>(){
             {EnvironmentObjectType.Grass, 0.1f },
             {EnvironmentObjectType.Crystal, 15f },
             {EnvironmentObjectType.Rock, 5f },
             {EnvironmentObjectType.Tree, 7.5f }
         }),
-        new VegetationPlacementAssetsPointer("Rocks", EnvironmentObjectType.Rock, "Assets/HQ_BigRock/", "Rock", true, new Vector3(0.0f, -0.1f, 0.0f), Vector3.one * 4.0f, Vector3.one * 8.0f, new Dictionary<EnvironmentObjectType, float>(){
+        new VegetationPlacementAssetsPointer("Rocks", EnvironmentObjectType.Rock, "Assets/Prefabs/Rocks/", "Rock", new Vector3(0.0f, -0.1f, 0.0f), Vector3.one * 4.0f, Vector3.one * 8.0f, new Dictionary<EnvironmentObjectType, float>(){
             {EnvironmentObjectType.Grass, 0.1f },
             {EnvironmentObjectType.Crystal, 5f },
             {EnvironmentObjectType.Rock, 5f },
@@ -426,21 +422,6 @@ public static class VegetationPlacementEditor
                 // Scale
                 float randomScale = Random.Range(0.0f, 1.0f);
                 result.transform.localScale = Vector3.Lerp(pointer.MinScale, pointer.MaxScale, randomScale);
-
-                // Colliders
-                if (pointer.PlaceColliders)
-                {
-                    Collider[] colliders = result.GetComponentsInChildren<Collider>();
-                    if (colliders.Length == 0)
-                    {
-                        // Need to add mesh colliders if NO colliders are present
-                        Renderer[] allRenderers = result.GetComponentsInChildren<Renderer>();
-                        foreach (Renderer renderObject in allRenderers)
-                        {
-                            renderObject.gameObject.AddComponent<MeshCollider>();
-                        }
-                    }
-                }
 
                 Undo.RegisterCreatedObjectUndo(result, "Vegetation Placement Spawn");
             }
