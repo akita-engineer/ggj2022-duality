@@ -32,6 +32,7 @@ public class WarpBackIfFallen : MonoBehaviour
         // note: we can use an even further back position if needed.
         // for example if notice due to island slopes they keep on sliding off even when warping back.
         transform.position = mRecordings[mRecordIndex];
+        SimpleGameController.Instance.OnFall();
     }
 
     private void Awake()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
 
 public class SimpleGameController : MonoBehaviour
 {
@@ -34,7 +35,11 @@ public class SimpleGameController : MonoBehaviour
     public GameObject winScreen = default;
     public GameObject interactionPrompt = default;
     public List<Interactor> interactors = new List<Interactor>();
-    
+
+    public UnityEvent onFall;
+
+    private Dictionary<FlagScriptableObject, bool> variableStore = new Dictionary<FlagScriptableObject, bool>();
+
     private float mSuccessDuration;
     private int mInteractionCount;
 
@@ -64,6 +69,25 @@ public class SimpleGameController : MonoBehaviour
         {
             interactionPrompt.SetActive(false);
         }
+    }
+
+    public void OnFall()
+    {
+        onFall.Invoke();
+    }
+
+    public void SetFlag(FlagScriptableObject flag)
+    {
+        Debug.Log("Raising flag: " + flag.name);
+        variableStore[flag] = true;
+    }
+
+    public bool GetFlag(FlagScriptableObject flag)
+    {
+        bool value = false;
+        variableStore.TryGetValue(flag, out value);
+        Debug.Log("Getting flag: " + flag.name + " value: " + value);
+        return value;
     }
 
     private void Update()
