@@ -175,8 +175,7 @@ Shader "Triplanar/Surface Shader (RNM)" {
                 );
 
 
-            // hacky hack
-
+            // Hacky hack for mask drawing
             if (distance(IN.worldPos, _BoundingSphere.xyz) < _BoundingSphere.w) {
                  if (distance(IN.vertexNormal, _LocalNormal) < 0.1) {
                     fixed3 decalCol = tex2D(_DecalTexture, IN.vertexPos.yz * _Scale + _Scroll.xy).rgb;
@@ -186,17 +185,7 @@ Shader "Triplanar/Surface Shader (RNM)" {
                     
                 }
             }
-           
 
-            // if (IN.worldNormal.x > 0.4) {
-            //     col *= tex2D(_DecalTexture, IN.worldPos.xy / 10);
-            // }
-
-            // Get mask texture color
-            // fixed3 masCol = tex2D(_DecalTexture, IN.uv_DecalTexture).rgb;
-
-            // set surface ouput properties
-            // o.Albedo = masCol > fixed3(0.2, 0.2, 0.2) ? col.rgb * _Color : masCol;
             o.Albedo = col.rgb;
             o.Emission = _ActivateEmission ? _EmissionColor : float4(0, 0, 0, 0);
             o.Metallic = _Metallic;
