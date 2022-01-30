@@ -98,7 +98,7 @@ public static class VegetationPlacementEditor
     {
         new VegetationPlacementAssetsPointer("Grass", "Assets/Fantasy Forest Environment Free Sample/Meshes/Prefabs/", "grass", false, Vector3.one, Vector3.one),
         new VegetationPlacementAssetsPointer("Trees", "Assets/Waldemarst/JapaneseGardenPackage/Prefabs/", "Tree", true, Vector3.one / 1.5f, Vector3.one),
-        new VegetationPlacementAssetsPointer("Crystals", "Assets/SineVFX/TranslucentCrystals/Prefabs/", "Crystal", true, Vector3.one / 2.0f, Vector3.one),
+        new VegetationPlacementAssetsPointer("Crystals", "Assets/Prefabs/Crystals/", "Crystal", true, Vector3.one / 2.0f, Vector3.one),
         new VegetationPlacementAssetsPointer("Rocks", "Assets/HQ_BigRock/", "Rock", true, Vector3.one / 2.0f, Vector3.one)
     };
 
