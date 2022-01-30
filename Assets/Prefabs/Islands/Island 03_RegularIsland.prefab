@@ -19,6 +19,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Island 03_RegularIsland
       objectReference: {fileID: 0}
+    - target: {fileID: 1133438272436124493, guid: 2602c1fbb933fa34e96d71b1257e34fe, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1133438272436217645, guid: 2602c1fbb933fa34e96d71b1257e34fe, type: 3}
       propertyPath: m_RootOrder
       value: 0

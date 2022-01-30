@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Landbridge 1_InterestingIsland
       objectReference: {fileID: 0}
+    - target: {fileID: 1525224503582605567, guid: 197b49ad4939b0844bcda7f307831702, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1525224503582711007, guid: 197b49ad4939b0844bcda7f307831702, type: 3}
       propertyPath: m_RootOrder
       value: 0

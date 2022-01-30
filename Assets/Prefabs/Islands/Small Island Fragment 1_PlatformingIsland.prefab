@@ -19,6 +19,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Island Fragment 1_PlatformingIsland
       objectReference: {fileID: 0}
+    - target: {fileID: 8998001714974089709, guid: 6bfa0ab91f5fb184c8e650d907030f40, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 8998001714974260685, guid: 6bfa0ab91f5fb184c8e650d907030f40, type: 3}
       propertyPath: m_RootOrder
       value: 0

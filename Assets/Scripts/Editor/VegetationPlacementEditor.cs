@@ -133,15 +133,14 @@ public static class VegetationPlacementEditor
 
     private static void PlaceBridge(Vector3 startPos, Vector3 endPos)
     {
-        string stairsPath = "Assets/laxer Assets/wood bridge/Prefabs with collision/wood bridge stairs 2.prefab";
-        string straightPath = "Assets/laxer Assets/wood bridge/Prefabs with collision/wood bridge 2.prefab";
+        string stairsPath = "Assets/Prefabs/Stairs/Stairs.prefab";
+        string straightPath = "Assets/Prefabs/Stairs/Path.prefab";
         GameObject stairsPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(stairsPath);
         GameObject pathPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(straightPath);
 
 
         bool isRising = endPos.y > startPos.y;
         Vector3 pathDir = endPos - startPos;
-        float totalDistance = Vector3.Distance(startPos, endPos);
         Vector3 rotationDir = new Vector3(pathDir.x, 0.0f, pathDir.z);
 
         // Flat rotation of pieces
@@ -273,7 +272,6 @@ public static class VegetationPlacementEditor
 
             if (Event.current.delta.y > 0)
             {
-                Debug.Log("Scroll down");
                 int currentValue = EditorPrefs.GetInt("VegetationPlacementSelectedObject");
                 int nextValue = currentValue == 0 ? placementObjects.Length - 1 : currentValue - 1;
                 SelectPlacementCategory(nextValue);
@@ -312,7 +310,8 @@ public static class VegetationPlacementEditor
         }
 
         // Hold to draw
-        if (Event.current.control && Event.current.alt)
+        // NOTE: isKey is important, because control and alt may be called for numerous other events too..
+        if (Event.current.isKey && Event.current.control && Event.current.alt)
         {
             VegetationPlacementAssetsPointer pointer = placementObjects[EditorPrefs.GetInt("VegetationPlacementSelectedObject")];
 
@@ -404,17 +403,6 @@ public static class VegetationPlacementEditor
                 result.transform.position = hitInfo.point;
                 result.transform.rotation = Quaternion.identity;
                 result.transform.parent = placementRoot.transform;
-
-
-                // Component
-                EnvironmentObject envObjectComponent = result.AddComponent<EnvironmentObject>();
-                envObjectComponent.SetObjectType(pointer.ObjectType);
-
-                // Static
-                foreach (Transform t in result.GetComponentsInChildren<Transform>())
-                {
-                    t.gameObject.isStatic = true;
-                }
 
                 // Offset
                 result.transform.position += pointer.Offset;

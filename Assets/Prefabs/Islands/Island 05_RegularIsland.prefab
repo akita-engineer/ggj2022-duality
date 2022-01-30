@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Island 05_RegularIsland
       objectReference: {fileID: 0}
+    - target: {fileID: 7914641256523534214, guid: 1de703b202a020a44b303a22a2886d68, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de703b202a020a44b303a22a2886d68, type: 3}
 --- !u!1 &5825161431889529036 stripped

@@ -7,12 +7,7 @@ public enum EnvironmentObjectType
 
 public class EnvironmentObject : MonoBehaviour
 {
-    private EnvironmentObjectType objectType;
+    [SerializeField]
+    private EnvironmentObjectType objectType = default;
     public EnvironmentObjectType ObjectType => objectType;
-
-
-    public void SetObjectType(EnvironmentObjectType type)
-    {
-        objectType = type;
-    }
 }
