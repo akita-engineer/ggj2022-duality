@@ -167,7 +167,10 @@ public static class VegetationPlacementEditor
 
 
         // First piece is
-        GameObject startPiece = GameObject.Instantiate(pathPrefab, startPos, pieceRotation, stairsInstanceRoot.transform);
+        GameObject startPiece = PrefabUtility.InstantiatePrefab(pathPrefab) as GameObject;
+        startPiece.transform.position = startPos;
+        startPiece.transform.rotation = pieceRotation;
+        startPiece.transform.parent = stairsInstanceRoot.transform;
         startPiece.AddComponent<FloatingPath>();
 
         GameObject lastPlacedPiece = startPiece;
@@ -227,7 +230,10 @@ public static class VegetationPlacementEditor
 
                 distance = potentialHorizontalDistance;
 
-                lastPlacedPiece = GameObject.Instantiate(pathPrefab, potentialHorizontalPos, pieceRotation, stairsInstanceRoot.transform);
+                lastPlacedPiece = PrefabUtility.InstantiatePrefab(pathPrefab) as GameObject;
+                lastPlacedPiece.transform.position = potentialHorizontalPos;
+                lastPlacedPiece.transform.rotation = pieceRotation;
+                lastPlacedPiece.transform.parent = stairsInstanceRoot.transform;
                 lastPlacedPiece.AddComponent<FloatingPath>();
             }
             else
@@ -239,7 +245,10 @@ public static class VegetationPlacementEditor
 
                 distance = potentialVerticalDistance;
 
-                lastPlacedPiece = GameObject.Instantiate(stairsPrefab, potentialVerticalPos, pieceRotation, stairsInstanceRoot.transform);
+                lastPlacedPiece = PrefabUtility.InstantiatePrefab(stairsPrefab) as GameObject;
+                lastPlacedPiece.transform.position = potentialVerticalPos;
+                lastPlacedPiece.transform.rotation = pieceRotation;
+                lastPlacedPiece.transform.parent = stairsInstanceRoot.transform;
                 lastPlacedPiece.AddComponent<FloatingStairs>();
             }
 
@@ -395,7 +404,11 @@ public static class VegetationPlacementEditor
                     }
                 }
 
-                GameObject result = GameObject.Instantiate(randomObject, hitInfo.point, Quaternion.identity, placementRoot.transform);
+                GameObject result = PrefabUtility.InstantiatePrefab(randomObject) as GameObject;
+                result.transform.position = hitInfo.point;
+                result.transform.rotation = Quaternion.identity;
+                result.transform.parent = placementRoot.transform;
+
 
                 // Component
                 EnvironmentObject envObjectComponent = result.AddComponent<EnvironmentObject>();
@@ -481,7 +494,10 @@ public static class VegetationPlacementEditor
             islandsRoot = new GameObject("Islands");
         }
 
-        GameObject newObject = GameObject.Instantiate(randomIsland, resultPos, Quaternion.identity, islandsRoot.transform);
+        GameObject newObject = PrefabUtility.InstantiatePrefab(randomIsland) as GameObject;
+        newObject.transform.position = resultPos;
+        newObject.transform.rotation = Quaternion.identity;
+        newObject.transform.parent = islandsRoot.transform;
         Undo.RegisterCreatedObjectUndo(newObject, "Place Island");
     }
 
