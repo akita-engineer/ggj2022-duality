@@ -83,12 +83,16 @@ public static class VegetationPlacementEditor
         private Vector3 maxScale;
         public Vector3 MaxScale => maxScale;
 
-        public VegetationPlacementAssetsPointer(string name, string path, string filter, bool placeColliders, Vector3 minScale, Vector3 maxScale)
+        private Vector3 offset;
+        public Vector3 Offset => offset;
+
+        public VegetationPlacementAssetsPointer(string name, string path, string filter, bool placeColliders, Vector3 offset, Vector3 minScale, Vector3 maxScale)
         {
             this.name = name;
             this.path = path;
             this.filter = filter;
             this.placeColliders = placeColliders;
+            this.offset = offset;
             this.minScale = minScale;
             this.maxScale = maxScale;
         }
@@ -96,10 +100,10 @@ public static class VegetationPlacementEditor
 
     public static VegetationPlacementAssetsPointer[] placementObjects = new VegetationPlacementAssetsPointer[]
     {
-        new VegetationPlacementAssetsPointer("Grass", "Assets/Fantasy Forest Environment Free Sample/Meshes/Prefabs/", "grass", false, Vector3.one, Vector3.one),
-        new VegetationPlacementAssetsPointer("Trees", "Assets/Waldemarst/JapaneseGardenPackage/Prefabs/", "Tree", true, Vector3.one / 1.5f, Vector3.one),
-        new VegetationPlacementAssetsPointer("Crystals", "Assets/Prefabs/Crystals/", "Crystal", true, Vector3.one / 2.0f, Vector3.one),
-        new VegetationPlacementAssetsPointer("Rocks", "Assets/HQ_BigRock/", "Rock", true, Vector3.one / 2.0f, Vector3.one)
+        new VegetationPlacementAssetsPointer("Grass", "Assets/Fantasy Forest Environment Free Sample/Meshes/Prefabs/", "grass", false, Vector3.zero, Vector3.one, Vector3.one),
+        new VegetationPlacementAssetsPointer("Trees", "Assets/Waldemarst/JapaneseGardenPackage/Prefabs/", "Tree", true, new Vector3(0.0f, -0.5f, 0.0f), Vector3.one / 1.5f, Vector3.one),
+        new VegetationPlacementAssetsPointer("Crystals", "Assets/Prefabs/Crystals/", "Crystal", true, Vector3.zero, Vector3.one * 4.0f, Vector3.one * 8.0f),
+        new VegetationPlacementAssetsPointer("Rocks", "Assets/HQ_BigRock/", "Rock", true, new Vector3(0.0f, -0.1f, 0.0f), Vector3.one * 2.0f, Vector3.one * 4.0f)
     };
 
     private static void PlaceBridge(Vector3 startPos, Vector3 endPos)
@@ -350,6 +354,9 @@ public static class VegetationPlacementEditor
                 {
                     t.gameObject.isStatic = true;
                 }
+
+                // Offset
+                result.transform.position += pointer.Offset;
 
                 // Scale
                 float randomScale = Random.Range(0.0f, 1.0f);
