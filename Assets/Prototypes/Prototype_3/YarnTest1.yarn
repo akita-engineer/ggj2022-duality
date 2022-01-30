@@ -28,3 +28,27 @@ Thing: Hey, nice to meet you. I'm a thing.
 Player: ...
 Thing: Shouldn't you greet yourself too?
 ===
+
+title: Fall1
+position: -355,-83
+---
+You fell.
+<<wait 3>>
+<<stop>>
+===
+
+title: Fall2
+position: -355,-83
+---
+You have fallen.
+<<wait 3>>
+<<stop>>
+===
+
+title: Fall3
+position: -355,-83
+---
+Sayonara.
+<<wait 3>>
+<<stop>>
+===
