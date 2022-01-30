@@ -53,7 +53,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7451151390237747267, guid: 01b0170ffa030bf4b81aa8d72b6ea2de, type: 3}
       propertyPath: m_Name
-      value: Island 13
+      value: Island 13_RegularIsland
       objectReference: {fileID: 0}
+    - target: {fileID: 7451151390239749633, guid: 01b0170ffa030bf4b81aa8d72b6ea2de, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7bd73b3efb66be648b50615947a48116, type: 2}
+    - target: {fileID: 7451151390239749633, guid: 01b0170ffa030bf4b81aa8d72b6ea2de, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab121916f05895d44a29923cac0030d4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01b0170ffa030bf4b81aa8d72b6ea2de, type: 3}

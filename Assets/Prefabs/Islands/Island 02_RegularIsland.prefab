@@ -7,9 +7,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8066974221936910695, guid: 2e6ef4f335c1b0f41828c6fff9f937e5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab121916f05895d44a29923cac0030d4, type: 2}
+    - target: {fileID: 8066974221936910695, guid: 2e6ef4f335c1b0f41828c6fff9f937e5, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7bd73b3efb66be648b50615947a48116, type: 2}
     - target: {fileID: 8066974221939179481, guid: 2e6ef4f335c1b0f41828c6fff9f937e5, type: 3}
       propertyPath: m_Name
-      value: Island 02
+      value: Island 02_RegularIsland
       objectReference: {fileID: 0}
     - target: {fileID: 8066974221939336121, guid: 2e6ef4f335c1b0f41828c6fff9f937e5, type: 3}
       propertyPath: m_RootOrder

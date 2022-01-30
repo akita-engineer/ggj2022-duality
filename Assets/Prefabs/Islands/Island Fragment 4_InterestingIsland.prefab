@@ -53,7 +53,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8941170198632644758, guid: aca2e538712511543adb01903106ed43, type: 3}
       propertyPath: m_Name
-      value: Island Fragment 4
+      value: Island Fragment 4_InterestingIsland
       objectReference: {fileID: 0}
+    - target: {fileID: 8941170198634585680, guid: aca2e538712511543adb01903106ed43, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7bd73b3efb66be648b50615947a48116, type: 2}
+    - target: {fileID: 8941170198634585680, guid: aca2e538712511543adb01903106ed43, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab121916f05895d44a29923cac0030d4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aca2e538712511543adb01903106ed43, type: 3}

@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6401578357901332419, guid: 8f324cdfdcc487d4c8fefd1341204ddf, type: 3}
       propertyPath: m_Name
-      value: Island 10
+      value: Island 10_RegularIsland
       objectReference: {fileID: 0}
     - target: {fileID: 6401578357901628323, guid: 8f324cdfdcc487d4c8fefd1341204ddf, type: 3}
       propertyPath: m_RootOrder
@@ -55,5 +55,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6401578357903528349, guid: 8f324cdfdcc487d4c8fefd1341204ddf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab121916f05895d44a29923cac0030d4, type: 2}
+    - target: {fileID: 6401578357903528349, guid: 8f324cdfdcc487d4c8fefd1341204ddf, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7bd73b3efb66be648b50615947a48116, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f324cdfdcc487d4c8fefd1341204ddf, type: 3}
