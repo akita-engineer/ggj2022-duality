@@ -9,9 +9,17 @@ ScriptedImporter:
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 053561912b1654d80a424bb0696a74ae, type: 3}
   sourceScripts:
-  - {fileID: 6391573757903218779, guid: 3c940ca9ce3cc3941bf1aeec42362134, type: 3}
+  - {fileID: 6391573757903218779, guid: 1d58f19939d303c4f92ce46e83afa51d, type: 3}
   compileErrors: []
-  serializedDeclarations: []
+  serializedDeclarations:
+  - name: $myvar
+    typeName: String
+    defaultValueBool: 0
+    defaultValueNumber: 0
+    defaultValueString: 
+    description: YarnTest1.yarn, node Start, line 0
+    isImplicit: 1
+    sourceYarnAsset: {fileID: 6391573757903218779, guid: 3c940ca9ce3cc3941bf1aeec42362134, type: 3}
   defaultLanguage: en-CA
   languagesToSourceAssets: []
   useAddressableAssets: 0

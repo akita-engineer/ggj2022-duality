@@ -16,6 +16,13 @@ Shader "Triplanar/Surface Shader (RNM)" {
         [Gamma] _Metallic("Metallic", Range(0, 1)) = 0
         [NoScaleOffset] _OcclusionMap("Occlusion", 2D) = "white" {}
         _OcclusionStrength("Strength", Range(0.0, 1.0)) = 1.0
+        _DecalTexture ("Mask Texture", 2D) = "white" {}
+        _DecalThreshold ("Mask Threshold", Range(0, 1)) = 0.2
+        _BoundingSphere("BoundingSphere", Vector) = (0, 0, 0, 30)
+        _LocalNormal ("Local normal", Vector) = (0, 0, 0, 0)
+        _Scale ("Scale", Range(0, 5)) = 1
+        _Scroll ("Scroll", Vector) = (0, 0, 0, 0)
+        
     }
     SubShader {
         Tags { "RenderType"="Opaque" }
@@ -23,7 +30,7 @@ Shader "Triplanar/Surface Shader (RNM)" {
         
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard fullforwardshadows
+        #pragma surface surf Standard fullforwardshadows vertex:vert
 
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
@@ -50,6 +57,8 @@ Shader "Triplanar/Surface Shader (RNM)" {
         sampler2D _MainTex;
         float4 _MainTex_ST;
 
+        sampler2D _DecalTexture;
+
         sampler2D _BumpMap;
         sampler2D _OcclusionMap;
 
@@ -62,10 +71,19 @@ Shader "Triplanar/Surface Shader (RNM)" {
         float _ActivateEmission;
         fixed4 _EmissionColor;
 
+        float4 _BoundingSphere;
+        float3 _LocalNormal;
+        float _Scale;
+        float2 _Scroll;
+        float _DecalThreshold;
+
         struct Input {
+            float2 uv_DecalTexture;
             float3 worldPos;
             float3 worldNormal;
             INTERNAL_DATA
+            float3 vertexNormal;
+            float3 vertexPos;
         };
 
         float3 WorldToTangentNormalVector(Input IN, float3 normal) {
@@ -75,6 +93,13 @@ Shader "Triplanar/Surface Shader (RNM)" {
             float3x3 t2w = float3x3(t2w0, t2w1, t2w2);
             return normalize(mul(t2w, normal));
         }
+
+        // Transfer the vertex normal to the Input structure
+       void vert (inout appdata_full v, out Input o) {
+           UNITY_INITIALIZE_OUTPUT(Input,o);
+           o.vertexNormal = v.normal;
+           o.vertexPos = v.vertex.xyz;
+       }
 
         void surf (Input IN, inout SurfaceOutputStandard o) {
             // work around bug where IN.worldNormal is always (0,0,0)!
@@ -149,8 +174,19 @@ Shader "Triplanar/Surface Shader (RNM)" {
                 tnormalZ.xyz * triblend.z
                 );
 
-            // set surface ouput properties
-            o.Albedo = col.rgb * _Color;
+
+            // Hacky hack for mask drawing
+            if (distance(IN.worldPos, _BoundingSphere.xyz) < _BoundingSphere.w) {
+                 if (distance(IN.vertexNormal, _LocalNormal) < 0.1) {
+                    fixed3 decalCol = tex2D(_DecalTexture, IN.vertexPos.yz * _Scale + _Scroll.xy).rgb;
+                    if (decalCol.x < _DecalThreshold) {
+                        col.rgb *= decalCol;
+                    }
+                    
+                }
+            }
+
+            o.Albedo = col.rgb;
             o.Emission = _ActivateEmission ? _EmissionColor : float4(0, 0, 0, 0);
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
