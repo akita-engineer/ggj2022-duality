@@ -74,21 +74,21 @@ public class ObjectivePoint : MonoBehaviour
 
     }
 
-    private void OnGUI()
-    {
-        GUILayout.BeginArea(new Rect(mXOffset, 10, 500, 500));
-        if (mScore >= successThreshold)
-        {
-            GUI.color = Color.green;
-        }
-        GUILayout.Label("Score: " + mScore);
-        GUI.color = Color.white;
-        GUILayout.Label("Distance: " + mDistanceDelta);
-        GUILayout.Label("Distance Score: " + mDistanceScore);
-        GUILayout.Label("Orientation: " + mOrientationDelta);
-        GUILayout.Label("Orientation Score: " + mOrietationScore);
-        GUILayout.EndArea();
-    }
+    //private void OnGUI()
+    //{
+    //    GUILayout.BeginArea(new Rect(mXOffset, 10, 500, 500));
+    //    if (mScore >= successThreshold)
+    //    {
+    //        GUI.color = Color.green;
+    //    }
+    //    GUILayout.Label("Score: " + mScore);
+    //    GUI.color = Color.white;
+    //    GUILayout.Label("Distance: " + mDistanceDelta);
+    //    GUILayout.Label("Distance Score: " + mDistanceScore);
+    //    GUILayout.Label("Orientation: " + mOrientationDelta);
+    //    GUILayout.Label("Orientation Score: " + mOrietationScore);
+    //    GUILayout.EndArea();
+    //}
 
     private void OnDrawGizmos()
     {
