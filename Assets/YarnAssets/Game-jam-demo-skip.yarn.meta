@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1d58f19939d303c4f92ce46e83afa51d
+guid: 8f446ad206803f840ba58aa41ffe3d3e
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -11,16 +11,4 @@ ScriptedImporter:
   LastImportHadImplicitStringIDs: 1
   LastImportHadAnyStrings: 1
   isSuccessfullyParsed: 1
-  parseErrorMessages:
-  - '285:0: Error: The node ''happy ending'' contains illegal characters in its title.
-
-    title:
-    happy ending
-
-'
-  - '285:0: Error: The node ''happy ending'' contains illegal characters in its title.
-
-    title:
-    happy ending
-
-'
+  parseErrorMessages: []
