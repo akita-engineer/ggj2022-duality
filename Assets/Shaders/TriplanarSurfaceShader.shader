@@ -22,7 +22,7 @@ Shader "Triplanar/Surface Shader (RNM)" {
         _LocalNormal ("Local normal", Vector) = (0, 0, 0, 0)
         _Scale ("Scale", Range(0, 5)) = 1
         _Scroll ("Scroll", Vector) = (0, 0, 0, 0)
-        
+        _NoiseTexture ("Noise Texture", 2D) = "white" {}
     }
     SubShader {
         Tags { "RenderType"="Opaque" }
@@ -58,6 +58,7 @@ Shader "Triplanar/Surface Shader (RNM)" {
         float4 _MainTex_ST;
 
         sampler2D _DecalTexture;
+        sampler2D _NoiseTexture;
 
         sampler2D _BumpMap;
         sampler2D _OcclusionMap;
@@ -180,10 +181,18 @@ Shader "Triplanar/Surface Shader (RNM)" {
                  if (distance(IN.vertexNormal, _LocalNormal) < 0.1) {
                     fixed3 decalCol = tex2D(_DecalTexture, IN.vertexPos.yz * _Scale + _Scroll.xy).rgb;
                     if (decalCol.x < _DecalThreshold) {
-                        col.rgb *= decalCol;
+                        col.rgb = col.rgb * 0.5f + decalCol * 0.5f;
                     }
                     
                 }
+            }
+
+            fixed4 noiseX = tex2D(_NoiseTexture, uvX * 0.5);
+            fixed4 noiseY = tex2D(_NoiseTexture, uvY * 0.5);
+            fixed4 noiseZ = tex2D(_NoiseTexture, uvZ * 0.5);
+            fixed4 noise = noiseX * triblend.x + noiseY * triblend.y + noiseZ * triblend.z;
+            if (noise.x < 0.1) {
+                col.rgb = col.rgb * 0.25f + noise.x * 0.75f;
             }
 
             o.Albedo = col.rgb;
