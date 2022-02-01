@@ -420,8 +420,11 @@ public static class VegetationPlacementEditor
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000.0f, ~0, QueryTriggerInteraction.Ignore))
             {
-                GameObject player = GameObject.Find("PlayerCapsule");
+                GameObject player = GameObject.Find("Player L");
                 player.transform.position = hitInfo.point + Vector3.up * 2;
+
+                GameObject player2 = GameObject.Find("PlayerL_R");
+                player2.transform.position = hitInfo.point + Vector3.up * 2;
             }
 
             if (Event.current.capsLock)
