@@ -26,31 +26,47 @@ public class SimpleGameController : MonoBehaviour
 
     #endregion
 
-    public int successThreshold = 2;
-
-    public int currentObjectivesComplete = 0;
-
+    [Header("Constants")]
     public float successDurationThreshold = 2.0f;
 
+    [Header("Game Play")]
+    public List<ObjectivePair> objectivePairs = new List<ObjectivePair>();
+    public ObjectivePair activeObjectivePair = null;
+    public UnityEvent onObjectivePairComplete;
+    public UnityEvent allObjectivePairsComplete;
+
+    [Header("Other")]
     public GameObject winScreen = default;
     public GameObject interactionPrompt = default;
     public List<Interactor> interactors = new List<Interactor>();
+
+    [Header("Runtime References")]
+    public GameObject playerL;
+    public GameObject playerR;
 
     public UnityEvent onFall;
 
     private Dictionary<FlagScriptableObject, bool> variableStore = new Dictionary<FlagScriptableObject, bool>();
 
-    private float mSuccessDuration;
     private int mInteractionCount;
 
-    public void OnObjectiveComplete()
+    public void OnObjectivePairComplete(ObjectivePair objective)
     {
-        currentObjectivesComplete++;
-    }
+        onObjectivePairComplete.Invoke();
 
-    public void OnObjectiveUncomplete()
-    {
-        currentObjectivesComplete--;
+        objectivePairs.Remove(objective);
+        if (objectivePairs.Count == 0)
+        {
+            allObjectivePairsComplete.Invoke();
+        }
+        else
+        {
+            if (activeObjectivePair == objective)
+            {
+                activeObjectivePair = objectivePairs[0];
+                activeObjectivePair.ActivateObjective();
+            }
+        }
     }
 
     public void ShowInteractionPrompt()
@@ -92,19 +108,6 @@ public class SimpleGameController : MonoBehaviour
 
     private void Update()
     {
-        if (currentObjectivesComplete >= successThreshold)
-        {
-            mSuccessDuration += Time.deltaTime;
-            if (mSuccessDuration >= successDurationThreshold)
-            {
-                winScreen.SetActive(true);
-            }
-        }
-        else
-        {
-            mSuccessDuration = 0;
-        }
-
         bool shouldShowInteraction = interactors.Any(interactor => interactor.HasInteractableSelected());
         if (shouldShowInteraction && !interactionPrompt.activeSelf)
         {

@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ObjectivePoint : MonoBehaviour
 {
+    public UnityEvent<ObjectivePoint> onSuccess;
+    public UnityEvent<ObjectivePoint> onFail;
+
+    [Header("Shared")]
     [Range(0.0f, 1.0f)]
     public float successThreshold = 0.9f;
 
@@ -12,6 +17,7 @@ public class ObjectivePoint : MonoBehaviour
     public float distanceToOrientationEvaluationPercentage = 0.5f;
 
     // The L/R camera transform
+    [Tooltip("Perspective transform to use. Can be left null if used in conjunction with ObjectivePair.")]
     public Transform target;
 
     [Header("Distance")]
@@ -58,11 +64,11 @@ public class ObjectivePoint : MonoBehaviour
 
         if (mScore >= successThreshold && mPrevScore < successThreshold)
         {
-            SimpleGameController.Instance.OnObjectiveComplete();
+            onSuccess.Invoke(this);
         }
         else if (mScore < successThreshold && mPrevScore >= successThreshold) 
         {
-            SimpleGameController.Instance.OnObjectiveUncomplete();
+            onFail.Invoke(this);
         }
         mPrevScore = mScore;
 
