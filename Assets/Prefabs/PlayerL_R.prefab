@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1398519823513858133, guid: 201ce3846e7fece428aced47ba3298ae, type: 3}
+      propertyPath: screenSide
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2146318710309502995, guid: 201ce3846e7fece428aced47ba3298ae, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
       value: 0.5

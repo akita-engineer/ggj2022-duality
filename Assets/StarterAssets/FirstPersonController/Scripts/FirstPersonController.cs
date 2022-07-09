@@ -130,6 +130,17 @@ namespace StarterAssets
 			}
 		}
 
+		public void SetCameraPitch(float pitch)
+        {
+			_cinemachineTargetPitch = ClampAngle(pitch, BottomClamp, TopClamp);
+			CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
+        }
+
+		public float GetCameraPitch()
+        {
+			return CinemachineCameraTarget.transform.localRotation.eulerAngles.x;
+		}
+
 		private void Move()
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
