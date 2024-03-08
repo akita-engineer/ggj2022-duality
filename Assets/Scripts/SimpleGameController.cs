@@ -29,11 +29,14 @@ public class SimpleGameController : MonoBehaviour
     [Header("Constants")]
     public float successDurationThreshold = 2.0f;
 
-    [Header("Game Play")]
+    [Header("Game Play / Objectives")]
     public List<ObjectivePair> objectivePairs = new List<ObjectivePair>();
     public ObjectivePair activeObjectivePair = null;
     public UnityEvent onObjectivePairComplete;
     public UnityEvent allObjectivePairsComplete;
+
+    [Header("Game Play / Player")]
+    public bool startWithPerspectivesJoined = true;
 
     [Header("Other")]
     public GameObject winScreen = default;
@@ -104,6 +107,19 @@ public class SimpleGameController : MonoBehaviour
         variableStore.TryGetValue(flag, out value);
         Debug.Log("Getting flag: " + flag.name + " value: " + value);
         return value;
+    }
+
+    private void Start()
+    {
+        if (startWithPerspectivesJoined)
+        {
+            var lSplit = playerL.GetComponent<SplitablePerspective>();
+            lSplit.transitionMode = SplitablePerspective.TransitionMode.InstantOneShot;
+            lSplit.Activate();
+            //var rSplit = playerR.GetComponent<SplitablePerspective>();
+            //rSplit.transitionMode = SplitablePerspective.TransitionMode.InstantOneShot;
+            //rSplit.Activate();
+        }
     }
 
     private void Update()

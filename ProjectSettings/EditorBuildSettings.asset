@@ -5,8 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Prototypes/Prototype_Cam_Split/CameraSplit.unity
     guid: 9e487efbc263a440c8b7a7d6d8110739
+  - enabled: 1
+    path: Assets/Scenes/Level_1_Showcase.unity
+    guid: 63c240e4e05f5c04cbb0c93594bfe8fc
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}

@@ -1,31 +1,41 @@
-﻿title: Start
-position: -78,-432
+title: Start
+position: -81,-431
 ---
-Dawn: Hey! I found you! You wonderful idiot… get up! Are you doing ok? Nobody saw where you went!
+Dawn: Hey! I found you! You wonderful idiot... get up! Are you doing ok? Nobody saw where you went!
 
 -> Who are you?
-    Oh no. Dude, I’m Dawn. My mom’s the Sun? Do you maybe remember my uncle, Moon? I mean I guess you probably wouldn’t have seen him anyways since they swapped places, but still, I figured you might have remembered the party. I can’t believe you fell all the way down to the Point of Balance. Yikes, eh?
-    
+    Dawn: Oh no. Dude, I'm Dawn. My mom's the Sun? Do you maybe remember my uncle, Moon? 
+    Dawn: I mean I guess you probably wouldn't have seen him anyways since they swapped places, but still, I figured you might have remembered the party. 
+    Dawn: I can't believe you fell all the way down to the Point of Balance. Yikes, eh?
+
 -> Where am I?
-    Oh buddy, you really bumped your head on the way down huh? We’re at the Point of Balance, half way between my mom, Sun, and my uncle, Moon. They swapped a while ago because she didn’t like the dark, but anyways. I went looking for you and burnt myself out on the way.
-    
-Dawn: So look, like, the long and the short of it is — we’re stuck in the Balance. The Balance is the knife’s edge between dualities, it forces us to see both. Mortals are ripped apart, and Immortals usually just lose their powers here, so if you encounter anyone expect them to be whacky. But you… are Duality. This place lit up when you arrived, just look at how the crystals are singing with power, pulling dualities closer together. If you stay here and stop balancing the dualities of our realm, Reality, everything in the universe could collapse into a singularity. So no pressure but find a way back home soon. 
+    Dawn: Oh buddy, you really bumped your head on the way down huh? We're at the Point of Balance, half way between my mom, Sun, and my uncle, Moon. 
+    Dawn: They swapped a while ago because she didn't like the dark, but anyways. I went looking for you and burnt myself out on the way.
 
-Dawn: Ok cool I guess you’re good to be unleashed now. Hey look, Night's shift is coming to an end and I gotta go fulfill my duties as the Dawn. You're going to have to find your own way out, but I'll help you if you can. So carry on, listen to the air, and when you’re near a solution it’ll… dawn on you. OK, good luck, get outta here!
+Dawn: So look, like, the long and the short of it is - we're stuck in the Balance. The Balance is the knife's edge between dualities, it forces us to see both. 
+Dawn: Mortals are ripped apart, and Immortals usually just lose their powers here, so if you encounter anyone expect them to be whacky. 
+Dawn: But you... are Duality. This place lit up when you arrived, just look at how the crystals are singing with power, pulling dualities closer together. 
+Dawn: If you stay here and stop balancing the dualities of our realm, Reality, everything in the universe could collapse into a singularity. So no pressure but find a way back home soon. 
 
-Dawn: …And no more yeeting yourself! 
+Dawn: Ok cool I guess you're good to be unleashed now. 
+Dawn: Hey look, Night's shift is coming to an end and I gotta go fulfill my duties as the Dawn. 
+Dawn: You're going to have to find your own way out, but I'll help you if you can. 
+Dawn: So carry on, listen to the air, and when you're near a solution it'll... dawn on you. 
+Dawn: OK, good luck, get outta here!
+
+Dawn: ...And no more yeeting yourself! 
 
 ===
 title: Fall1
-position: -355,-83
+position: -307,918
 ---
-Wow buddy, don’t fall. I told you escape would be harder than flying.
+Wow buddy, don't fall. I told you escape would be harder than flying.
 <<wait 3>>
 <<stop>>
 ===
 
 title: Fall2
-position: -355,-83
+position: -310,780
 ---
 Just getting in your air miles, eh? 
 <<wait 3>>
@@ -33,7 +43,7 @@ Just getting in your air miles, eh?
 ===
 
 title: Fall3
-position: -355,-83
+position: -313,643
 ---
 CEASE THIS YEETING. 
 <<wait 3>>
@@ -41,7 +51,7 @@ CEASE THIS YEETING.
 ===
 
 title: Fall4
-position: -355,-83
+position: -316,510
 ---
 I SAID NO MORE YEETING.
 <<wait 3>>
@@ -49,7 +59,7 @@ I SAID NO MORE YEETING.
 ===
 
 title: Fall5
-position: -355,-83
+position: -316,369
 ---
 Look, you noodle, stop wasting time. 
 <<wait 3>>
@@ -57,7 +67,7 @@ Look, you noodle, stop wasting time.
 ===
 
 title: Fall6
-position: -355,-83
+position: -314,229
 ---
 Look at you go. 
 <<wait 3>>
@@ -65,7 +75,7 @@ Look at you go.
 ===
 
 title: Fall7
-position: -355,-83
+position: -315,91
 ---
 Training your air-awareness, are you.
 <<wait 3>>
@@ -73,15 +83,15 @@ Training your air-awareness, are you.
 ===
 
 title: Fall8
-position: -355,-83
+position: -316,-38
 ---
-Now you’re just doing this on purpose. 
+Now you're just doing this on purpose. 
 <<wait 3>>
 <<stop>>
 ===
 
 title: Fall9
-position: -355,-83
+position: -320,-171
 ---
 Are you inventing Abyss Surfing as a new sport? Looks tough. 
 <<wait 3>>
@@ -89,15 +99,15 @@ Are you inventing Abyss Surfing as a new sport? Looks tough.
 ===
 
 title: Fall10
-position: -355,-83
+position: -321,-302
 ---
-May as well train your side flips while you’re at it. 
+May as well train your side flips while you're at it. 
 <<wait 3>>
 <<stop>>
 ===
 
 title: Fall11
-position: -355,-83
+position: -322,-434
 ---
 No. Yeeting. Allowed. 
 <<wait 3>>
@@ -106,49 +116,72 @@ No. Yeeting. Allowed.
 ===
 
 title: CATLEVEL1
-position: -38,-66.5
+position: -79,-166
 ---
 
-Cat: Wowww took you long enough. Yea, you look like one of those “I think therefore I am” types, where you see every conversation as just a short dialogue tree. How do you know your thoughts aren’t just me thinking about you thinking, perhaps even more luxuriously? Scritch my ear.
+Cat: Wowww took you long enough. Yea, you look like one of those “I think therefore I am” types, where you see every conversation as just a short dialogue tree. 
+Cat: How do you know your thoughts aren't just me thinking about you thinking, perhaps even more luxuriously? Scritch my ear.
 
-Duality: ... *scritches*
+-> ... *scritches*
 
-Cat: I’m not just some infinitely grinning NPC you know, I’m Schrodinger’s Cat. You honestly don’t even look like some big hero, “the Chosen One TM.” Meow, you’re Duality, right? So I guess you’d more accurately be called “the Two." BELLY RUBS NOW. 
+Cat: I'm not just some infinitely grinning NPC you know, I'm Schrodinger's Cat. 
+Cat: You honestly don't even look like some big hero, “the Chosen One TM.” 
+Cat: Meow, you're Duality, right? So I guess you'd more accurately be called “the Two." BELLY RUBS NOW. 
 
-Duality: *rubs belly* Aren't you dead, kitty?
+-> *rubs belly*
 
-Cat: Look, don’t think I got fridged for your personal growth. I don’t even know if I’m really dead dead: this could just be my potential bad ending. Maybe there’s an alive version of myself out there too… If we got out of the Balance, my good ending and I could collapse into one… for better or for worse. So how about it, want to help me sort out my quantum entanglement? All I need is for you to make a choice. 
+Duality: Aren't you dead, kitty?
+
+Cat: Look, don't think I got fridged for your personal growth. 
+Cat: I don't even know if I'm really dead dead: this could just be my potential bad ending. 
+Cat: Maybe there's an alive version of myself out there too... If we got out of the Balance, my good ending and I could collapse into one... for better or for worse. 
+Cat: So how about it, want to help me sort out my quantum entanglement? All I need is for you to make a choice. 
 
 -> Yes, I'll help you unify your particles
-    Really? Awesome, great, ok, good. I’ll just float around over here for a bit, then, don’t mind me. I wonder how we can get out?
+    Really? Awesome, great, ok, good. I'll just float around over here for a bit, then, don't mind me. I wonder how we can get out?
 
 -> Sure, but don't be catty.
-    Really? Awesome, great, ok, good. I’ll just float around over here for a bit, then, don’t mind me. I wonder how we can get out?
+    Really? Awesome, great, ok, good. I'll just float around over here for a bit, then, don't mind me. I wonder how we can get out?
 
 ===
 
 title: AMPHITHEATERLEVEL2
-position: -38,-66.5
+position: -81,-300
 ---
 Drama: Happy. Sad. The highest high, the lowest low. Without them memories can fade so quickly.
-
-Drama: The masks we wear… they protect us, conceal our true feelings — but as we hide behind them they can become greater than us, overshadowing our goals, dizzying our souls. Tell me, little maskless one... what is your name?
+Drama: The masks we wear... they protect us, conceal our true feelings - but as we hide behind them they can become greater than us, overshadowing our goals, dizzying our souls. 
+Drama: Tell me, little maskless one... what is your name?
  
 -> My name is Duality, of the Pantheon of Fate, offspring of Perspective.
-    Impressive. You seem very suited to this realm, you know. Spending time in the Balance could sharpen your awareness and offer you new perspectives.  
+    Drama: Impressive. You seem very suited to this realm, you know. 
+    Drama: Spending time in the Balance could sharpen your awareness and offer you new perspectives.  
 
 -> I don't know you.
-    Haha, and I don’t know you... yet! As you walk this plane you may stumble into deep wells of emotion, but I can offer you my aid, if only you open yourself to the possibilities. You can become so much more than what you were, here, and I can show you how.
+    Drama: Haha, and I don't know you... yet! 
+    Drama: As you walk this plane you may stumble into deep wells of emotion, but I can offer you my aid, if only you open yourself to the possibilities. 
+    Drama: You can become so much more than what you were, here, and I can show you how.
 
-Duality: Dawn said Reality might collapse into a singularity if I don’t get back home. 
+Duality: Dawn said Reality might collapse into a singularity if I don't get back home. 
 
-Drama: Ahh, well if you ever learn to juggle your duties, come visit. The Balance forces us to see all dualities at once, and it is the greatest rush. Clashing emotions overlap and intertwine, becoming something entirely new. Have you ever laughed and cried at the same time? In order to leave this place, you must learn to see both sides of the coin. 
+Drama: Ahh, well if you ever learn to juggle your duties, come visit. 
+Drama: The Balance forces us to see all dualities at once, and it is the greatest rush. Clashing emotions overlap and intertwine, becoming something entirely new. 
+Drama: Have you ever laughed and cried at the same time? 
+
+Drama: In order to leave this place, you must learn to see both sides of the coin. 
 Drama: *Tosses you the coin from his necklace* 
+Drama: Dualities are hardly separate actually, they're more like two faces of a hyperobject. You don't always see them at the same time but they're linked. 
+Drama: Speaking of - now that I'm just pumped with adrenaline and endorphins - I feel so ALIVE! 
+Drama: If we act now, we can visit the Flip Side and you can ask its denizens for a way out, if you dare. When you're ready, flip this coin.
 
-Drama: Dualities are hardly separate actually, they're more like two faces of a hyperobject. You don’t always see them at the same time but they’re linked. Speaking of — now that I'm just pumped with adrenaline and endorphins — I feel so ALIVE! If we act now, we can visit the Flip Side and you can ask its denizens for a way out, if you dare. When you're ready, flip this coin.
+-> *Flip coin*
+
+NOTE: (Level not implemented. However...)
+
+Duality: ... *You catch the coin and put it away. Maybe you'll need it later.*
 
 ===
 title: deathlevel3
+position: -78,-35
 ---
 
 Duality: h-HELLO? IS ANYONE THERE?
@@ -187,7 +220,7 @@ Dusk: Baby, maybe it's just me bringing you down. I turn even the brightest days
 
 Death: NO you're my FAVOURITE. NEVER LEAVE PWEASE.
 
-Dusk: Oh, this is terrible timing, but baby it's my shift. Duality, I have to close this day. Duality… If you stay here for a full cycle you might become so aware of both your sides that you'll never be able to leave the Balance. You can't come with me. You'll have to find your own way out.
+Dusk: Oh, this is terrible timing, but baby it's my shift. Duality, I have to close this day. Duality... If you stay here for a full cycle you might become so aware of both your sides that you'll never be able to leave the Balance. You can't come with me. You'll have to find your own way out.
 
 Death: *Bone rattling sigh* I'm such a burden.
 
@@ -217,7 +250,7 @@ Death: I hate my job.
 
 Duality: So, did the kitty die while in the Balance?
 
-Death: You know, souls blend together in my brain after a while… but I did find this case a little odd. Dusk found him, poor thing.
+Death: You know, souls blend together in my brain after a while... but I did find this case a little odd. Dusk found him, poor thing.
 
 Duality: Do you think... because he died in the Balance, he separated into two different beings? One for each side of his duality?
 
@@ -225,15 +258,15 @@ Death: Like salad dressing in the fridge?
 
 Duality: Yeah. Like, I found him quite lively, but lacking body.
 
-Death: Huh. Yeah… after his life force was torn asunder by Balance, his body must have been left floating around out there in Reality. Like some kind of… spooky zombie cat. Cool, but creepy. And definitely not sanitary. Yuck.
+Death: Huh. Yeah... after his life force was torn asunder by Balance, his body must have been left floating around out there in Reality. Like some kind of... spooky zombie cat. Cool, but creepy. And definitely not sanitary. Yuck.
 
 Duality: So, could you recombine him here? So he can live on in the Balance?
 
-Death: Hmm… I suppose that’s in my power. Usually I transport souls from Reality to the realm of the dead, but this really doesn’t look good for me, having a random undead body out there. Plus, I would LOVE to surprise my Duskmuffin with a new kitten.
+Death: Hmm... I suppose that's in my power. Usually I transport souls from Reality to the realm of the dead, but this really doesn't look good for me, having a random undead body out there. Plus, I would LOVE to surprise my Duskmuffin with a new kitten.
 
 Duality: He is extremely mouthy.
 
-Death: Haha, maybe he'll inspire me to write again. Ah, but wait. There’s a problem. If we just rip a body out of Reality, that’ll cause an imbalance. A hole! Reality will start leaking into the Balance and vice versa. Not to mention my books won’t be balanced. And I really don't want to get audited... again. 
+Death: Haha, maybe he'll inspire me to write again. Ah, but wait. There's a problem. If we just rip a body out of Reality, that'll cause an imbalance. A hole! Reality will start leaking into the Balance and vice versa. Not to mention my books won't be balanced. And I really don't want to get audited... again. 
 
 Duality: What if I offer my body in trade?
     
@@ -241,17 +274,38 @@ Death: I can't transport full bipeds for free, is the thing.
 
 Duality: I can pay for the ride. *Tosses coin*
 
-Death: Also, I’ve never transported someone this way before. Usually it’s a one-way trip, Reality to Death. You’ll be breaking new ground. I’ll also be uh… breaking you in half on my knife’s edge to do it. You're sure you want to make this deal? 
+Death: Also, I've never transported someone this way before. Usually it's a one-way trip, Reality to Death. You'll be breaking new ground. I'll also be uh... breaking you in half on my knife's edge to do it. You're sure you want to make this deal? 
 
-Duality: Well, given a choice between the path you know leads nowhere, and the one you don’t... you gotta take a leap of faith. 
+Duality: Well, given a choice between the path you know leads nowhere, and the one you don't... you gotta take a leap of faith. 
 
 Death: I can see my beloved guiding the Sun to slumber. Quick, before the shadows meld into one. Stand still so I can line up my scythe.
 
 Death: *Everything goes dark and Duality splits, falling into the real world divided in pieces*
 
-Dawn: Dusk! You found Duality’s second half! It's so good to see you, my sibling! Let’s put their halves together. There you go, Duality. Rough day, huh? 
+Dawn: Dusk! You found Duality's second half! It's so good to see you, my sibling! Let's put their halves together. There you go, Duality. Rough day, huh? 
 
-Dusk: They cut themselves in half on the knife's edge to escape, that's pretty creative. Death’s been singing about it ever since, and my new Cat keeps adding rude echo verses.  
+Dusk: They cut themselves in half on the knife's edge to escape, that's pretty creative. Death's been singing about it ever since, and my new Cat keeps adding rude echo verses.  
 
 
+===
+title: DEBUG_NOTES
+position: -200,-601
+---
+This is the actual dialogue the showcase/final build is using.
+===
+title: CONTROLS
+position: 196,-431
+---
+Dialogue: Advance/Select Dialogue: Space/Enter
+Movement: Move: WASD<br>Sprint: Hold Shift<br>Jump: Space
+Duality: Split/Rejoin: G<br>Swap controlled half: F
+Misc: Pause: ESC<br>P: Teleport to puzzle
+Enjoy!
+===
+title: WINGAME
+position: 198,-295
+---
+Congratulations you've won!
+Thanks for playing =)
+Alt-F4 to exit
 ===

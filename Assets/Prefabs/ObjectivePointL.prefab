@@ -44,7 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb68ed053b1d2e429f8e39f560f6613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  successThreshold: 0.9
+  onSuccess:
+    m_PersistentCalls:
+      m_Calls: []
+  onFail:
+    m_PersistentCalls:
+      m_Calls: []
+  successThreshold: 0.8
   distanceToOrientationEvaluationPercentage: 0.699
   target: {fileID: 0}
   distanceMaxDistance: 10

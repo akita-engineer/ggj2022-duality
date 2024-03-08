@@ -125,10 +125,106 @@ MonoBehaviour:
   verboseLogging: 1
   onNodeStart:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2420362347381670162}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8469713596465416107}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7043923036796930057}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3881442834872307376}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onNodeComplete:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2420362347381670162}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 8469713596465416107}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 7043923036796930057}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 3881442834872307376}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onDialogueComplete:
     m_PersistentCalls:
       m_Calls: []
@@ -707,14 +803,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636336132cceb7f4c987d4e2b50afb5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  successThreshold: 2
-  currentObjectivesComplete: 0
   successDurationThreshold: 2
+  objectivePairs: []
+  activeObjectivePair: {fileID: 0}
+  onObjectivePairComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  allObjectivePairsComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  startWithPerspectivesJoined: 1
   winScreen: {fileID: 4503863960967663103}
   interactionPrompt: {fileID: 4600895316795018143}
   interactors:
   - {fileID: 124521768891718898}
   - {fileID: 6171847923575052875}
+  playerL: {fileID: 2420362347381670165}
+  playerR: {fileID: 8469713596465416108}
   onFall:
     m_PersistentCalls:
       m_Calls:
@@ -742,10 +847,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f1c0e7aee14c840a2f36fbf3134529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 1
   nodeNames:
   - Fall1
   - Fall2
   - Fall3
+  prefix: Fall
+  count: 11
   dialogueRunner: {fileID: 177433151274754084}
 --- !u!1 &4503863960029216634
 GameObject:
@@ -1401,6 +1509,7 @@ GameObject:
   - component: {fileID: 4503863961013934579}
   - component: {fileID: 4503863961013934581}
   - component: {fileID: 4503863961013934578}
+  - component: {fileID: 5311238236549977148}
   m_Layer: 5
   m_Name: SplitLine
   m_TagString: Untagged
@@ -1462,6 +1571,19 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &5311238236549977148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4503863961013934576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d8f4276981dc741b16ce9f6b7fcb49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetScale: {x: 0, y: 1, z: 1}
 --- !u!1 &4503863961066447646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1842,6 +1964,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4503863959681638385}
     m_Modifications:
+    - target: {fileID: 4588658441646746059, guid: b3952d6b51e7976499f773ba3f5862b1, type: 3}
+      propertyPath: otherPerspectiveRoot
+      value: 
+      objectReference: {fileID: 2420362347381670165}
     - target: {fileID: 8408836451287005805, guid: b3952d6b51e7976499f773ba3f5862b1, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1903,9 +2029,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cdd8a2c38a6a794a9c7c05dd33ea03a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &4286420319296290544 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3535320940555852171, guid: b3952d6b51e7976499f773ba3f5862b1, type: 3}
+--- !u!1 &8469713596465416108 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9221648689009860823, guid: b3952d6b51e7976499f773ba3f5862b1, type: 3}
   m_PrefabInstance: {fileID: 753111846478620539}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &9133765174773046550 stripped
@@ -1913,11 +2039,60 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8408836451287005805, guid: b3952d6b51e7976499f773ba3f5862b1, type: 3}
   m_PrefabInstance: {fileID: 753111846478620539}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8469713596465416108 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9221648689009860823, guid: b3952d6b51e7976499f773ba3f5862b1, type: 3}
+--- !u!114 &8469713596465416107 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9221648689009860816, guid: b3952d6b51e7976499f773ba3f5862b1, type: 3}
   m_PrefabInstance: {fileID: 753111846478620539}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469713596465416108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3881442834872307376 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4588658441646746059, guid: b3952d6b51e7976499f773ba3f5862b1, type: 3}
+  m_PrefabInstance: {fileID: 753111846478620539}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469713596465416108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6883dc814a1b8394cb67dfa34e48b829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &4286420319296290544 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3535320940555852171, guid: b3952d6b51e7976499f773ba3f5862b1, type: 3}
+  m_PrefabInstance: {fileID: 753111846478620539}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8068084843879843150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469713596465416108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cb20128800e91844bdf699982aac42a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInputActionOnHiddenPerspective:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7848991214183463578}
+        m_TargetAssemblyTypeName: SwappableInputPropagatorMessages, Assembly-CSharp
+        m_MethodName: SwapPerspectives
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OnSwapPerspectives
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &2041294077487934678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2143,6 +2318,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67dde1b92175d4745aaea386e7555d40, type: 3}
+--- !u!224 &6352668571529614453 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4935123090281167011, guid: 67dde1b92175d4745aaea386e7555d40, type: 3}
+  m_PrefabInstance: {fileID: 2041294077487934678}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6352668571529614448 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4935123090281167014, guid: 67dde1b92175d4745aaea386e7555d40, type: 3}
@@ -2154,11 +2334,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddcdd604a328c4ab296f048eb7b3a925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &6352668571529614453 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4935123090281167011, guid: 67dde1b92175d4745aaea386e7555d40, type: 3}
-  m_PrefabInstance: {fileID: 2041294077487934678}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2730619428496259564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2346,11 +2521,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 638e885a48f1a46c29aaa1b64688b208, type: 3}
---- !u!224 &2191587706326868376 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6323935187928403879, guid: 638e885a48f1a46c29aaa1b64688b208, type: 3}
-  m_PrefabInstance: {fileID: 5307831791613718079}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2191587706326868356 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6323935187928403899, guid: 638e885a48f1a46c29aaa1b64688b208, type: 3}
@@ -2362,6 +2532,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac0c40fc910845709d9cef7c876cb99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &2191587706326868376 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6323935187928403879, guid: 638e885a48f1a46c29aaa1b64688b208, type: 3}
+  m_PrefabInstance: {fileID: 5307831791613718079}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6811150886770093556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2435,6 +2610,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4503863959681638385}
     m_Modifications:
+    - target: {fileID: 1398519823513858133, guid: 201ce3846e7fece428aced47ba3298ae, type: 3}
+      propertyPath: otherPerspectiveRoot
+      value: 
+      objectReference: {fileID: 8469713596465416108}
+    - target: {fileID: 2146318710309502995, guid: 201ce3846e7fece428aced47ba3298ae, type: 3}
+      propertyPath: field of view
+      value: 66.00898
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146318710309502995, guid: 201ce3846e7fece428aced47ba3298ae, type: 3}
+      propertyPath: m_FOVAxisMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5344953083469352170, guid: 201ce3846e7fece428aced47ba3298ae, type: 3}
       propertyPath: interactionMask.m_Bits
       value: 8
@@ -2489,19 +2676,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 201ce3846e7fece428aced47ba3298ae, type: 3}
+--- !u!1 &2420362347381670165 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5998612507352119625, guid: 201ce3846e7fece428aced47ba3298ae, type: 3}
+  m_PrefabInstance: {fileID: 8262276760383158364}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8025627355435219017 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2146318710309502997, guid: 201ce3846e7fece428aced47ba3298ae, type: 3}
   m_PrefabInstance: {fileID: 8262276760383158364}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2420362347381670162 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5998612507352119630, guid: 201ce3846e7fece428aced47ba3298ae, type: 3}
+  m_PrefabInstance: {fileID: 8262276760383158364}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420362347381670165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3088636016263306159 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6373872099647316979, guid: 201ce3846e7fece428aced47ba3298ae, type: 3}
-  m_PrefabInstance: {fileID: 8262276760383158364}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2420362347381670165 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5998612507352119625, guid: 201ce3846e7fece428aced47ba3298ae, type: 3}
   m_PrefabInstance: {fileID: 8262276760383158364}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &124521768891718898 stripped
@@ -2515,3 +2713,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cdd8a2c38a6a794a9c7c05dd33ea03a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7043923036796930057 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1398519823513858133, guid: 201ce3846e7fece428aced47ba3298ae, type: 3}
+  m_PrefabInstance: {fileID: 8262276760383158364}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420362347381670165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6883dc814a1b8394cb67dfa34e48b829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8140508793856234304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420362347381670165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cb20128800e91844bdf699982aac42a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInputActionOnHiddenPerspective:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7739123165998535578}
+        m_TargetAssemblyTypeName: SwappableInputPropagatorMessages, Assembly-CSharp
+        m_MethodName: SwapPerspectives
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OnSwapPerspectives
+          m_BoolArgument: 0
+        m_CallState: 2

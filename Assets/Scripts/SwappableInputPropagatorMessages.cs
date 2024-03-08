@@ -36,11 +36,22 @@ public class SwappableInputPropagatorMessages : MonoBehaviour
 
     public void OnSplitJoin(InputValue value)
     {
-        Debug.Log("On split join");
+        Debug.Log("Input: On split join");
         target.SendMessage("OnSplitJoin", value);
     }
 
+    public void OnDebugTeleport(InputValue value)
+    {
+        Debug.Log("Input: On debug teleport");
+        target.SendMessage("OnDebugTeleport", value);
+    }
+
     public void OnSwapPerspectives(InputValue value)
+    {
+        SwapPerspectives();
+    }
+
+    public void SwapPerspectives()
     {
         var temp = target;
         target = swapTarget.target;

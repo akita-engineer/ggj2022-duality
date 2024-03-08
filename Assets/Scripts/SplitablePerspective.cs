@@ -2,6 +2,7 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -27,6 +28,13 @@ public class SplitablePerspective : MonoBehaviour
         Right
     };
 
+    public enum TransitionMode
+    {
+        Animated,
+        InstantOneShot,
+        Instant
+    };
+
     public enum DebugThing
     {
         None,
@@ -41,6 +49,13 @@ public class SplitablePerspective : MonoBehaviour
     public PlayerConfigScriptableObject playerConfig;
     public ScreenSide screenSide = ScreenSide.Left;
     public SplitState splitState = SplitState.Split;
+    public TransitionMode transitionMode = TransitionMode.Animated;
+
+    // for other animations like UI... 
+    [Tooltip("Only invoked once, for the player sending the action. Invoked when perspective split starts specifically. (spaghetti for dinner?)")]
+    public UnityEvent<float> onSplitStart;
+    [Tooltip("Only invoked once, for the player sending the action. (spaghetti for dinner?)")]
+    public UnityEvent<float> onRejoinStart;
 
     private static readonly Rect leftViewPort = new Rect(0.0f, 0.0f, 0.5f, 1.0f);
     private static readonly Rect rightViewPort = new Rect(0.5f, 0.0f, 1.0f, 1.0f);
@@ -48,12 +63,12 @@ public class SplitablePerspective : MonoBehaviour
     private static readonly Rect rightRenderCut = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
     private static readonly Rect fullRenderCut = new Rect(-1.0f, -1.0f, 2.0f, 2.0f);
 
-    // returner
-    public float returningDuration = 1.0f;
-    private Quaternion returningStart;
+    // returner 
+    //public float returningDuration = 1.0f; // (see playerConfig instead)
+    //private Quaternion returningStart;
 
     // splitter
-    public float splitDuration = 1.0f;
+    //public float splitDuration = 1.0f; // (see playerConfig instead)
     private float splitCounter = -1.0f;
     private Quaternion splitTarget;
 
@@ -68,6 +83,7 @@ public class SplitablePerspective : MonoBehaviour
     private bool isTransitioning = false;
     private FirstPersonController fps;
 
+    [Header("DEBUG NOT USED IN RUNTIME")]
     public RawImage rawImg;
     private RenderTexture rt;
 
@@ -115,6 +131,15 @@ public class SplitablePerspective : MonoBehaviour
     }
 
     /// <summary>
+    /// Is this perspective hidden?
+    /// eg. the inactive perspective when rejoined.
+    /// </summary>
+    public bool IsHidden()
+    {
+        return perspectiveCamera.enabled == false;
+    }
+
+    /// <summary>
     /// Splits or rejoins the perspectives, depending on the current state.
     /// </summary>
     public void Activate()
@@ -126,6 +151,12 @@ public class SplitablePerspective : MonoBehaviour
         else
         {
             StartCoroutine(RejoinFlow());
+        }
+
+        // cleanup
+        if (transitionMode == TransitionMode.InstantOneShot)
+        {
+            transitionMode = TransitionMode.Animated;
         }
 
         //return;
@@ -203,7 +234,10 @@ public class SplitablePerspective : MonoBehaviour
     public void OnSplitJoin(InputValue value)
     {
         Debug.Log("Split join");
-        Activate();
+        if (enabled && !isTransitioning)
+        {
+            Activate();
+        }
         // otherSplitablePerspective.Activate();
     }
 
@@ -225,6 +259,7 @@ public class SplitablePerspective : MonoBehaviour
         yield return StartCoroutine(ReturnToHorizonTransition());
 
         // step 2. split both perspectives
+        onSplitStart.Invoke(transitionMode == TransitionMode.Animated ? playerConfig.splitDuration : 0.0f);
         Vector3 forward = new Vector3(perspectiveCamera.transform.forward.x, 0, perspectiveCamera.transform.forward.z).normalized;
         StartCoroutine(otherSplitablePerspective.MoveToSplitTransition(forward));
         yield return StartCoroutine(MoveToSplitTransition(forward));
@@ -248,8 +283,9 @@ public class SplitablePerspective : MonoBehaviour
         otherSplitablePerspective.isTransitioning = true;
 
         Vector3 forward = new Vector3(perspectiveCamera.transform.forward.x, 0, perspectiveCamera.transform.forward.z).normalized;
-        Vector3 targetForward = Quaternion.Euler(0, -splitRotationDirection * playerConfig.splitFov / 4.0f, 0) * forward;
+        Vector3 targetForward = Quaternion.Euler(0, -splitRotationDirection * playerConfig.splitFov / 2.0f, 0) * forward; // TODO: might want to change 2.0 back to 4.0. not 100% sure what's up here. 
 
+        onRejoinStart.Invoke(transitionMode == TransitionMode.Animated ? playerConfig.rejoinDuration : 0.0f);
         StartCoroutine(otherSplitablePerspective.RejoinTransition(targetForward, transform.position, false));
         yield return StartCoroutine(RejoinTransition(targetForward, transform.position, true));
 
@@ -267,14 +303,14 @@ public class SplitablePerspective : MonoBehaviour
         // just some shifting to ensure this value can go negative (which the controller expects)
         if (pitch > 180.0f) pitch -= 360.0f;
 
-        var returningCounter = 0.0f;
-        while (returningCounter < playerConfig.returnToHorizonDuration)
+        var returningCounter = (transitionMode == TransitionMode.Animated) ? 0.0f : playerConfig.returnToHorizonDuration;
+        do
         {
             returningCounter = Mathf.Min(returningCounter + Time.deltaTime, playerConfig.returnToHorizonDuration);
             float progress = playerConfig.returnToHorizonCurve.Evaluate(returningCounter / playerConfig.returnToHorizonDuration);
             fps.SetCameraPitch(Mathf.Lerp(pitch, 0, progress));
             yield return null;
-        }
+        } while (returningCounter < playerConfig.returnToHorizonDuration);
     }
 
     private IEnumerator ReturnToHorizonInstantTransition(Vector3 position, Quaternion rootRotation)
@@ -414,7 +450,7 @@ public class SplitablePerspective : MonoBehaviour
         float aspect = perspectiveCamera.aspect;
 
         perspectiveCamera.enabled = true;
-        perspectiveCamera.ResetProjectionMatrix();
+        //perspectiveCamera.ResetProjectionMatrix();
         perspectiveCamera.rect = splitViewPort;
 
         CharacterController thisCC = GetComponent<CharacterController>();
@@ -432,11 +468,11 @@ public class SplitablePerspective : MonoBehaviour
             right = 1.0f;
         }
 
-        var counter = 0.0f;
-        while (counter < splitDuration)
+        var counter = (transitionMode == TransitionMode.Animated) ? 0.0f : playerConfig.splitDuration;
+        do
         {
-            counter = Mathf.Min(counter + Time.deltaTime, splitDuration);
-            float progress = playerConfig.splitCurve.Evaluate(counter / splitDuration);
+            counter = Mathf.Min(counter + Time.deltaTime, playerConfig.splitDuration);
+            float progress = playerConfig.splitCurve.Evaluate(counter / playerConfig.splitDuration);
 
             // Note: There's some math here to do this properly (given a start and end FOV) but I'm too lazy to figure it out
             var progress2 = playerConfig.splitCurve2.Evaluate(progress);
@@ -449,11 +485,11 @@ public class SplitablePerspective : MonoBehaviour
             //RemapCameraContents(perspectiveCamera, renderCut, splitViewPort);
             var projectionMat = OffsetProjectionMatrix(
                 Mathf.Lerp(left, 0.0f, progress2), // this might look counter intuitive but we start with rendering half of the full fov (and then all of the half fov)
-                Mathf.Lerp(right, 1.0f, progress2), 
-                0, 
-                1, 
+                Mathf.Lerp(right, 1.0f, progress2),
+                0,
+                1,
                 perspectiveCamera.nearClipPlane,
-                perspectiveCamera.farClipPlane, 
+                perspectiveCamera.farClipPlane,
                 Mathf.Lerp(currentFov, targetFov, progress),
                 Mathf.Lerp(aspect, aspect / 2.0f, progress));
             // Matrix4x4.identity; 
@@ -462,8 +498,9 @@ public class SplitablePerspective : MonoBehaviour
             //perspectiveCamera.fieldOfView = Camera.HorizontalToVerticalFieldOfView(Mathf.Lerp(currentFov, targetFov, progress), perspectiveCamera.aspect);
             transform.rotation = Quaternion.Lerp(currentRotataion, targetRotation, progress);
             yield return null;
-        }
-        perspectiveCamera.aspect = aspect / 2.0f;
+        } while (counter < playerConfig.splitDuration);
+
+        //perspectiveCamera.aspect = aspect / 2.0f;
         Debug.Log(playerConfig.fov);
         Debug.Log(perspectiveCamera.fieldOfView);
 
@@ -489,7 +526,7 @@ public class SplitablePerspective : MonoBehaviour
         if (pitch > 180.0f) pitch -= 360.0f;
 
         perspectiveCamera.enabled = true;
-        perspectiveCamera.ResetProjectionMatrix();
+        //perspectiveCamera.ResetProjectionMatrix();
         perspectiveCamera.rect = splitViewPort;
 
         CharacterController thisCC = GetComponent<CharacterController>();
@@ -507,18 +544,18 @@ public class SplitablePerspective : MonoBehaviour
             right = 1.0f;
         }
 
-        var counter = 0.0f;
-        while (counter < splitDuration)
+        var counter = (transitionMode == TransitionMode.Animated) ? 0.0f : playerConfig.rejoinDuration;
+        do
         {
-            counter = Mathf.Min(counter + Time.deltaTime, splitDuration);
-            float progress = playerConfig.splitCurve.Evaluate(counter / splitDuration);
+            counter = Mathf.Min(counter + Time.deltaTime, playerConfig.rejoinDuration);
+            float progress = playerConfig.splitCurve.Evaluate(counter / playerConfig.rejoinDuration);
 
             // Note: There's some math here to do this properly (given a start and end FOV) but I'm too lazy to figure it out
             var progress2 = playerConfig.splitCurve2.Evaluate(progress);
             var projectionMat = OffsetProjectionMatrix(
                 Mathf.Lerp(0.0f, left, progress2),
                 Mathf.Lerp(1.0f, right, progress2),
-                0, 
+                0,
                 1,
                 perspectiveCamera.nearClipPlane,
                 perspectiveCamera.farClipPlane,
@@ -530,14 +567,25 @@ public class SplitablePerspective : MonoBehaviour
             transform.position = Vector3.Lerp(currentPosition, targetPosition, progress);
             fps.SetCameraPitch(Mathf.Lerp(pitch, 0, progress));
             yield return null;
-        }
+        } while (counter < playerConfig.rejoinDuration);
 
         // both perspectives now have the exact same view, but are only rendering one half of it.
         // now we reset the projection so both have the same view and render the same portion. (and below we disable the non-host side)
         // TODO: we should seriously consider just using a custom projection matrix the entire time.
-        perspectiveCamera.aspect = targetAspect;
+
+        //perspectiveCamera.aspect = targetAspect;
         perspectiveCamera.rect = new Rect(0, 0, 1, 1);
-        perspectiveCamera.ResetProjectionMatrix();
+        //perspectiveCamera.ResetProjectionMatrix();
+
+        perspectiveCamera.projectionMatrix = OffsetProjectionMatrix(
+            0,
+            1,
+            0,
+            1,
+            perspectiveCamera.nearClipPlane,
+            perspectiveCamera.farClipPlane,
+            targetFov,
+            targetAspect);
 
         thisCC.enabled = true;
         splitState = SplitState.Joined;
